@@ -1,9 +1,16 @@
-import { Text } from 'react-native';
+import { StatusBar } from 'react-native';
+import Home from './src/screens/Home';
 
 export default function App(){
   return (
     <>
-    <Text>Ambiente de Testes</Text>
+    <StatusBar 
+    barStyle="dark-content" 
+    backgroundColor="transparent"
+    translucent
+    />
+    <Home/>
     </>
+    
   )
 }
