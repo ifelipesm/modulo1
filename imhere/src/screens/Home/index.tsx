@@ -6,7 +6,6 @@ import { styles } from "./styles";
 export default function Home(){
   const [participants,setParticipants] = useState<string[]>([])
   const [participantName,setParticipantName] = useState('');
-  console.log(participants);
   
   function handleParticipantAdd(){
     if(participants.includes(participantName)){
@@ -18,8 +17,18 @@ export default function Home(){
   }
   
   function handleParticipantRemove(name: string){
-    return setParticipants(prevState => prevState.filter(participant => participant !== name));
-    }
+    Alert.alert('Remove',`Remove participant ${name} from the list?`,[
+      {
+        text:'Yes',
+        onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name))
+      },
+      {
+        text:'No',
+        style:'cancel'
+      }
+    ])
+  
+  }
 
   function handleState(state:string){
     setParticipantName(state);
