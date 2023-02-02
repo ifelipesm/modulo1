@@ -13,7 +13,7 @@ export default function Participant({name,onRemove}: Props){
 
       <TouchableOpacity style={styles.button} onPress={onRemove} >
         <Text style={styles.buttonText} >
-          +
+          -
         </Text>
       </TouchableOpacity>
     </View>

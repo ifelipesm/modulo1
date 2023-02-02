@@ -30,21 +30,17 @@ export default function Home(){
   
   }
 
-  function handleState(state:string){
-    setParticipantName(state);
-  }
-
   return(
     <View style={styles.container}>
-      <Text style={styles.eventName} >Event Name</Text>
-      <Text style={styles.eventDate} >Day, Month, 00 of 0000</Text>
+      <Text style={styles.eventName} >Nome do Evento</Text>
+      <Text style={styles.eventDate} >Terça, 31 de Janeiro de 2023</Text>
     
       <View style={styles.form}>
         <TextInput 
         style={styles.input} 
         placeholder="Participant Name"  
         placeholderTextColor="#6b6b6b"
-        onChangeText={handleState}
+        onChangeText={setParticipantName}
         value={participantName}
         />
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
