@@ -3,10 +3,10 @@ import { FlatList, TextInput, TouchableOpacity, View, Text, Alert } from "react-
 import { Task } from "../../components/Task";
 import { Feather } from "@expo/vector-icons"
 
-import Logo from "../../assets/logo.svg";
+
 import { styles } from "./styles";
 
-export default function Home(){
+export function Home(){
   const [tasks,setTasks] = useState<string[]>([])
   const [taskDescription,setTaskDescription] = useState('');
   const [checked,setChecked] = useState(false);
@@ -16,29 +16,22 @@ export default function Home(){
         return Alert.alert("Tarefa cadastrada","Já existe uma tarefa cadastrada com esta descrição.");
       }
       setTasks(prevState => [...prevState,taskDescription]);
+      console.log(tasks.length);
       setTaskDescription('');
     }
 
     function handleTaskRemove(description:string){
-      Alert.alert('Remover',`Remover a tarefa da lista?`,[
-        {
-          text:'Sim',
-          onPress: () => setTasks(prevState => prevState.filter(task => task !== description))
-        },
-        {
-          text:'Não',
-          style:'cancel'
-        }
-      ])
+    setTasks(prevState => prevState.filter(task => task !== description))
     }
 
   return (
     <View style={styles.container}>
-      <Logo/>
+      
       <View style={styles.form}>
         <TextInput 
         style={styles.inputText}
         placeholder="Adicione uma nova tarefa"
+        placeholderTextColor="#808080"
         onChangeText={setTaskDescription}
         value={taskDescription}
         />
@@ -46,7 +39,7 @@ export default function Home(){
           <Feather style={styles.buttonIcon} name="plus" size={16}/>
         </TouchableOpacity>
       </View>
-
+      
       <FlatList
         data={tasks}
         keyExtractor={item => item}
@@ -59,16 +52,17 @@ export default function Home(){
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={()=>(
           <>
-          <Feather 
-          style={styles.listEmptyTextIcon} 
-          name="clipboard" size={56}
-          />
-          <Text style={styles.listEmptyTextBold}>
-            Você ainda não tem tarefas cadastradas.
-          </Text>
-          <Text style={styles.listEmptyText}>
-            Crie tarefas e organize seus itens a fazer.
-          </Text>
+          <View style={styles.listEmptyContainer}>
+            <Feather 
+            name="clipboard" size={56} color="#808080"
+            />
+            <Text style={styles.listEmptyTextBold}>
+              Você ainda não tem tarefas cadastradas.
+            </Text>
+            <Text style={styles.listEmptyText}>
+              Crie tarefas e organize seus itens a fazer.
+            </Text>
+          </View>
           </>
         )}
       />

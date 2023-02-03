@@ -1,11 +1,11 @@
 import { TouchableOpacity, View, Text } from "react-native"
+import { Feather } from "@expo/vector-icons"
 
 type checkboxProps = {
   checked?: boolean,
-  description: string,
 }
 
-export function Checkbox({description,checked=false}:checkboxProps){
+export function Checkbox({checked=false}:checkboxProps){
 
   return (
     <TouchableOpacity>
@@ -13,16 +13,12 @@ export function Checkbox({description,checked=false}:checkboxProps){
       {
         checked
         ? 
-       <View>
-          <Text >
-          {description}
-          </Text>
+        <View>
+          <Feather name="check-circle" color="#5E60CE" size={24} />
         </View>  
       :
         <View>
-          <Text >
-          {description}
-          </Text>
+          <Feather name="circle" color="#4EA8DE" size={24} />
         </View>
       }
 
