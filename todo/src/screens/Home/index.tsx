@@ -2,21 +2,28 @@ import { useState } from "react";
 import { FlatList, TextInput, TouchableOpacity, View, Text, Alert } from "react-native";
 import { Task } from "../../components/Task";
 import { Feather } from "@expo/vector-icons"
-
-
 import { styles } from "./styles";
+import { TaskListEmpty } from "../../components/TaskListEmpty";
+import { Header } from "../../components/Header";
+import { TaskInfo } from "../../components/TaskInfo";
 
 export function Home(){
-  const [tasks,setTasks] = useState<string[]>([])
+  const [tasks,setTasks] = useState<string[]>([]);
+  const [completedTask,setCompletedTask] = useState<string[]>([]);
   const [taskDescription,setTaskDescription] = useState('');
-  const [checked,setChecked] = useState(false);
+  const [checked,setChecked] = useState<string[]>([]);
+
+    function handleCompletedTask(){
+      if(tasks.includes(taskDescription)){
+      setCompletedTask(prevState => [...prevState,taskDescription])
+      }
+    }
 
     function handleTaskAdd(){
       if(tasks.includes(taskDescription)){
         return Alert.alert("Tarefa cadastrada","Já existe uma tarefa cadastrada com esta descrição.");
       }
       setTasks(prevState => [...prevState,taskDescription]);
-      console.log(tasks.length);
       setTaskDescription('');
     }
 
@@ -25,8 +32,9 @@ export function Home(){
     }
 
   return (
-    <View style={styles.container}>
-      
+    <>
+    <Header/>
+    <View style={styles.container}> 
       <View style={styles.form}>
         <TextInput 
         style={styles.inputText}
@@ -39,33 +47,29 @@ export function Home(){
           <Feather style={styles.buttonIcon} name="plus" size={16}/>
         </TouchableOpacity>
       </View>
+
+      <TaskInfo amount={tasks.length} completed={completedTask.length} />
       
       <FlatList
         data={tasks}
         keyExtractor={item => item}
         renderItem={  ({item}) => (
+        <>
         <Task
           key={item}
           description={item}
-          onRemove={()=>handleTaskRemove(`${item}`)}/>
+          checked={item}
+          onCheck={()=>handleCompletedTask()}
+          onRemove={()=>handleTaskRemove(`${item}`)}
+        />
+        </>
         )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={()=>(
-          <>
-          <View style={styles.listEmptyContainer}>
-            <Feather 
-            name="clipboard" size={56} color="#808080"
-            />
-            <Text style={styles.listEmptyTextBold}>
-              Você ainda não tem tarefas cadastradas.
-            </Text>
-            <Text style={styles.listEmptyText}>
-              Crie tarefas e organize seus itens a fazer.
-            </Text>
-          </View>
-          </>
+          <TaskListEmpty/>
         )}
       />
     </View>   
+    </>
   )
 }

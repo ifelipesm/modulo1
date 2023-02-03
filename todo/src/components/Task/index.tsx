@@ -6,13 +6,14 @@ import { styles } from "./styles"
 interface taskProps {
   description: string,
   onRemove: () => void
+  onCheck: () => void,
   checked: boolean,
 }
 
-export function Task({description,onRemove,checked}:taskProps){
+export function Task({description,onRemove,onCheck,checked}:taskProps){
   return(
     <View style={styles.container}>
-      <Checkbox checked={checked}/>
+      <Checkbox />
       <Text style={styles.description}>{description}
       </Text>
       <TouchableOpacity style={styles.removeIcon} onPress={onRemove}>

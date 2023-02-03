@@ -6,10 +6,11 @@ export const styles = StyleSheet.create({
     width:"100%",
     backgroundColor:'#1a1a1a',
     flex: 1,
-    padding:24,
+    paddingLeft:24,
+    paddingRight:24,
   },
   form:{
-    marginTop:142,
+    height: 0,
     marginBottom:32,
     flexDirection: "row",
     justifyContent:"center",
@@ -40,27 +41,9 @@ export const styles = StyleSheet.create({
     justifyContent:"center",
     color:'#F2F2F2',
   },
-  listEmptyContainer:{
-    marginTop:68,
-    paddingLeft:24,
-    paddingRight:24,
-    display: "flex",
-    flexDirection:"column",
+  taskInfo:{
+    flexDirection: "row",
+    justifyContent:"center",
     alignItems:"center",
-  },
-  listEmptyTextBold:{
-    fontWeight:'bold',
-    textAlign:'center',
-    color:'#808080',
-    fontSize:14,
-    marginTop:16,
-
-  },
-  listEmptyText:{
-    fontWeight:'normal',
-    textAlign:'center',
-    color:'#808080',
-    fontSize:14,
   }
-
 })
