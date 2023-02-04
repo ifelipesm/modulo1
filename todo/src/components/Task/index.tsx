@@ -5,14 +5,14 @@ import { styles } from "./styles"
 interface taskProps {
   description: string,
   onRemove: () => void
-  checkedValue: boolean,
+  checked: boolean,
 }
 
-export function Task({description,onRemove,checkedValue=false}:taskProps){
+export function Task({description,onRemove,checked=false}:taskProps){
   return(
     <View style={styles.container}>
       {
-      checkedValue
+      checked
       ? 
           <>
             <Feather name="check-circle" color="#4EA8DE" size={24} />

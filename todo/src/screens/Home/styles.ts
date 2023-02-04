@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   },
   form:{
     height: 0,
-    marginBottom:32,
+    marginBottom:64,
     flexDirection: "row",
     justifyContent:"center",
     alignItems:"center",
