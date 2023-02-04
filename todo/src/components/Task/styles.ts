@@ -22,8 +22,15 @@ description:{
   marginRight:16,
   marginLeft:20,
 },
+descriptionChecked:{
+  height: 40,
+  fontSize:14,
+  color:'#f2f2f2',
+  paddingLeft:20,
+  paddingRight:20,
+  textDecorationLine:"line-through",
+},
 removeIcon:{
-  padding: 6,
   height:32,
   width: 32,
 },

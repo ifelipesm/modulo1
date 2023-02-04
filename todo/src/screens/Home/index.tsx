@@ -11,18 +11,20 @@ export function Home(){
   const [tasks,setTasks] = useState<string[]>([]);
   const [completedTask,setCompletedTask] = useState<string[]>([]);
   const [taskDescription,setTaskDescription] = useState('');
-  const [checked,setChecked] = useState<string[]>([]);
+  const [checked,setChecked] = useState<boolean>(false);
 
     function handleCompletedTask(){
-      if(tasks.includes(taskDescription)){
-      setCompletedTask(prevState => [...prevState,taskDescription])
+      if(completedTask.includes(taskDescription)){
+        setCompletedTask(prevState => prevState.filter(completedTask => completedTask !== taskDescription))
+        return setChecked(false);
+      }
+      else{
+        setCompletedTask(prevState => [...prevState,taskDescription])
+        return setChecked(true);
       }
     }
 
     function handleTaskAdd(){
-      if(tasks.includes(taskDescription)){
-        return Alert.alert("Tarefa cadastrada","Já existe uma tarefa cadastrada com esta descrição.");
-      }
       setTasks(prevState => [...prevState,taskDescription]);
       setTaskDescription('');
     }
@@ -44,7 +46,7 @@ export function Home(){
         value={taskDescription}
         />
         <TouchableOpacity style={styles.button} onPress={handleTaskAdd}>
-          <Feather style={styles.buttonIcon} name="plus" size={16}/>
+          <Feather style={styles.buttonIcon} name="plus-circle" size={16}/>
         </TouchableOpacity>
       </View>
 
@@ -53,16 +55,16 @@ export function Home(){
       <FlatList
         data={tasks}
         keyExtractor={item => item}
-        renderItem={  ({item}) => (
-        <>
-        <Task
-          key={item}
-          description={item}
-          checked={item}
-          onCheck={()=>handleCompletedTask()}
-          onRemove={()=>handleTaskRemove(`${item}`)}
-        />
-        </>
+        renderItem={  ({item}) => 
+        (
+          <TouchableOpacity onPress={handleCompletedTask} >
+            <Task
+            key={item}
+            description={item}
+            checkedValue={checked}
+            onRemove={()=>handleTaskRemove(`${item}`)}
+            />
+          </TouchableOpacity>
         )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={()=>(
