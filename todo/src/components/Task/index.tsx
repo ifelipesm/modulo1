@@ -24,8 +24,8 @@ export function Task({description,onRemove,checked=false}:taskProps){
             <Text style={styles.description}>{description}</Text>
           </>
       }
-      <TouchableOpacity style={styles.removeIcon} onPress={onRemove}>
-          <Feather name="trash-2" size={18} color="#808080"/>
+      <TouchableOpacity style={styles.removeIconBox} onPress={onRemove}>
+          <Feather name="trash-2" size={20} color="#808080"/>
       </TouchableOpacity>
     </View>
   )

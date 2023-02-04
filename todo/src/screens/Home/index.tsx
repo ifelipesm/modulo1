@@ -14,8 +14,10 @@ export function Home(){
   const [completedTask,setCompletedTask] = useState<string[]>([]);
   
     function handleTaskAdd(taskDescription:string){
+      if(!tasks.includes(taskDescription)){
         setTasks(prevState => [...prevState,taskDescription]);
         setTaskText('');
+      }
     }
 
     function handleTaskRemove(taskDescription:string){
@@ -65,7 +67,7 @@ export function Home(){
         tasks.length > 0
         ?
         tasks.map((task,i) => 
-          (
+          ( 
             <TouchableOpacity onPress={()=>handleCompletedTask(task)} >
               <Task
                 key={i}
