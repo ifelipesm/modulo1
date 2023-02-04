@@ -1,12 +1,12 @@
 import { View,Text } from "react-native";
 import { styles } from "./styles";
 
-type taskInfoProps={
+type taskCounterProps={
   amount: number,
   completed: number,
 }
 
-export function TaskInfo({amount,completed}:taskInfoProps){
+export function TaskCounter({amount,completed}:taskCounterProps){
   return(
       <View style={styles.container}>
           <Text style={styles.createdText} >Criadas</Text>

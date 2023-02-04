@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     justifyContent:"center",
     color:'#F2F2F2',
   },
-  taskInfo:{
+  taskCounter:{
     flexDirection: "row",
     justifyContent:"center",
     alignItems:"center",

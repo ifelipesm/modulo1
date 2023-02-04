@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons"
 import { styles } from "./styles";
 import { TaskListEmpty } from "../../components/TaskListEmpty";
 import { Header } from "../../components/Header";
-import { TaskInfo } from "../../components/TaskInfo";
+import { TaskCounter } from "../../components/TaskCounter";
 
 export function Home(){
   const [tasks,setTasks] = useState<string[]>([]);
@@ -56,7 +56,7 @@ export function Home(){
         </TouchableOpacity>
       </View>
 
-      <TaskInfo amount={tasks.length} completed={completedTask.length} />
+      <TaskCounter amount={tasks.length} completed={completedTask.length} />
       
       <ScrollView
       showsVerticalScrollIndicator={false}
