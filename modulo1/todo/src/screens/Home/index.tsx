@@ -21,12 +21,10 @@ export function Home(){
     }
 
     function handleTaskRemove(taskDescription:string){
-      if(checked){
-        setTasks(prevState => prevState.filter(task => task !== taskDescription))
+      if(checked)
         setCompletedTask(prevState => prevState.filter(completedTask => completedTask !== taskDescription))
-      }
-      else
-        setTasks(prevState => prevState.filter(task => task !== taskDescription))
+      
+      setTasks(prevState => prevState.filter(task => task !== taskDescription))
     }
 
     function handleCompletedTask(taskDescription:string){

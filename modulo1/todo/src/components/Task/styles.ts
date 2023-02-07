@@ -37,5 +37,10 @@ removeIconBox:{
   marginLeft:8,
   marginRight:8,
   justifyContent:"center",
+  alignItems:"center",
 },
+removeIconBoxFocused:{
+  backgroundColor:'#333333',
+  borderRadius:4
+}
 })
