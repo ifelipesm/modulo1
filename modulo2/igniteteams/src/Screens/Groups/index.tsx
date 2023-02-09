@@ -5,9 +5,10 @@ import { Highlight } from '@components/Highlight';
 import * as Styles from './styles';
 import { FlatList } from 'react-native';
 import { ListEmpty } from '@components/ListEmpty';
+import { Button } from '@components/Button';
 
 export function Groups() {
-  const [groups,setGroups]=useState<string[]>([])
+  const [groups,setGroups]=useState<string[]>(['1','2','3','4','5','6','7'])
 
   return (
     <Styles.Container>       
@@ -33,6 +34,7 @@ export function Groups() {
           />
         )}
       />
+      <Button title="Criar Nova Turma" type="PRIMARY" />
     </Styles.Container>
   );
 }
