@@ -5,6 +5,7 @@ import theme from  './src/theme';
 import { StatusBar } from 'react-native'
 import { Loading } from "@components/Loading";
 import { NewGroup } from "@screens/NewGroup";
+import { Players } from "@components/Players";
 
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
       />
     { fontsLoaded ? 
     <>
-    <NewGroup/> 
+    <Players/> 
     
     </>
     : <Loading/> }
