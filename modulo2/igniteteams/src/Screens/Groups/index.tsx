@@ -34,7 +34,10 @@ export function Groups() {
           />
         )}
       />
-      <Button title="Criar Nova Turma" type="PRIMARY" />
+      <Button 
+        title="Criar Nova Turma" 
+        type="PRIMARY"
+      />
     </Styles.Container>
   );
 }
