@@ -30,7 +30,7 @@ export function Players() {
       <Header showBackButton/>
 
       <Highlight 
-        title="Nome da turma"
+        title={group}
         subtitle="Adicione a galera e separe os times!"  
       />
 
@@ -47,7 +47,7 @@ export function Players() {
 
       <HeaderList>
         <FlatList
-        data={[`${group}`, 'Time B']}
+        data={[`Time A`, 'Time B']}
         keyExtractor={item => item}
         renderItem={({item}) => (
           <Filter
