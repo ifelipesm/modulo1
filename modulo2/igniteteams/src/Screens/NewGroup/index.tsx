@@ -1,17 +1,19 @@
+import { useState } from 'react';
+
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { Input } from '@components/Input';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+
 import { Container, Content, Icon } from './styles';
 
 export function NewGroup() {
-
+  const [group, setGroup] = useState('');
   const navigation = useNavigation();
 
-  function handleGoForward(){
-    navigation.navigate('players');
+  function handleNewGoForward(){
+    navigation.navigate('players',{ group: group });
   }
 
   return (
@@ -27,10 +29,11 @@ export function NewGroup() {
 
         <Input
         placeholder="Nome da turma"
+        onChangeText={text => setGroup(text)}
         />
 
         <Button
-          onPress={handleGoForward}
+          onPress={handleNewGoForward}
           title="Criar"
         />
       </Content>
