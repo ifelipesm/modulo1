@@ -1,20 +1,28 @@
-import * as S from './styles';
+
 import logoImg from '@assets/logo.png';
+import { useNavigation } from '@react-navigation/native';
+import { BackButton, BackIcon, Container, Logo } from './styles';
 
 type Props = {
   showBackButton?: boolean;
 };
 
 export function Header({showBackButton = false}: Props) {
+  const navigation = useNavigation();
+
+  function handleGoBack(){
+    navigation.navigate('groups');
+  }
+
   return (
-    <S.Container>
+    <Container>
     {  
       showBackButton &&
-      <S.BackButton>
-        <S.BackIcon />
-      </S.BackButton>
+      <BackButton onPress={handleGoBack} >
+        <BackIcon />
+      </BackButton>
     }
-      <S.Logo source={logoImg} />
-    </S.Container>
+      <Logo source={logoImg} />
+    </Container>
   );
 }

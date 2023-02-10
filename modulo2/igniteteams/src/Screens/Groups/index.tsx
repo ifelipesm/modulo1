@@ -2,16 +2,23 @@ import { useState } from 'react';
 import { GroupCard } from '@components/GroupCard';
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
-import * as Styles from './styles';
 import { FlatList } from 'react-native';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
+import { useNavigation } from '@react-navigation/native';
+import { Container } from './styles';
+
 
 export function Groups() {
   const [groups,setGroups]=useState<string[]>(['1','2','3','4','5','6','7'])
+  const navigation = useNavigation();
 
+  function handleNewGroup(){
+    navigation.navigate('new');
+  }
+  
   return (
-    <Styles.Container>       
+    <Container>       
       <Header/>
       <Highlight 
         title="Turmas"
@@ -37,7 +44,8 @@ export function Groups() {
       <Button 
         title="Criar Nova Turma" 
         type="PRIMARY"
+        onPress={handleNewGroup}
       />
-    </Styles.Container>
+    </Container>
   );
 }
