@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native'
+import { useEffect, useRef, useState } from 'react';
+import { Alert, FlatList, TextInput } from 'react-native'
 
 import { Header } from '@components/Header';
 import { Input } from '@components/Input';
@@ -15,7 +15,6 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import { useRoute } from '@react-navigation/native';
 import { AppError } from '@utils/AppError';
 import { playerAddByGroup } from '@storage/player/playerAddByGroup';
-import { playerGetByGroup } from '@storage/player/playerGetByGroup';
 import { playerGetByGroupAndTeam } from '@storage/player/playerGetByGroupAndTeam';
 import { PlayerStorageDTO } from '@storage/player/playerStorageDTO';
 import { playerRemoveByGroup } from '@storage/player/playerRemoveByGroup';
@@ -31,6 +30,8 @@ export function Players() {
 
   const route = useRoute();
   const { group } = route.params as routeParams;
+
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
     async function fetchPlayersByTeam(){
       try{
@@ -53,6 +54,8 @@ export function Players() {
         }
         try{
           await playerAddByGroup(newPlayer,group);
+          newPlayerNameInputRef.current?.blur(); // remove focus
+          setNewPlayerName(''); 
           fetchPlayersByTeam();
         }
         catch(error){
@@ -64,19 +67,22 @@ export function Players() {
             Alert.alert('Novo Jogador', 'Não foi possível adicionar um novo jogador.');
           }
         } 
-        setNewPlayerName('');
       }
 
-    function handleRemovePlayer(player: string){
-      const removedPlayerList = players.filter(p => p.name !== player);
-      setPlayers(removedPlayerList);
-
-      const removedPlayer = {
-        name: player,
-        team,
+    async function handlePlayerRemove(playerName: string){
+      try{  
+        await playerRemoveByGroup(playerName,group);
+        fetchPlayersByTeam();
       }
-
-      playerRemoveByGroup(removedPlayer,group);
+      catch(error){
+        if(error instanceof AppError){
+          Alert.alert('Remover Jogador', error.message);
+        } 
+        else {
+          console.log(error);
+          Alert.alert('Remover Jogador', 'Não foi possível remover o jogador.');
+        }
+      } 
     }
 
 
@@ -95,12 +101,15 @@ export function Players() {
 
       <Form>  
         <Input
+          inputRef={newPlayerNameInputRef} 
           onChangeText={setNewPlayerName}
           placeholder="Nome do participante"
           autoCorrect={false}
           value={newPlayerName}
+          onSubmitEditing={handleAddPlayer} // submit on keyboard
+          returnKeyType="done"  // return of submit on keyboard
         />
-        
+
         <ButtonIcon
           icon="add"
           onPress={handleAddPlayer}
@@ -131,7 +140,7 @@ export function Players() {
         renderItem={({item}) => (
           <PlayerCard 
             name={item.name} 
-            onRemove={() => handleRemovePlayer(item.name)}
+            onRemove={() => handlePlayerRemove(item.name)}
           />
         )}
         ListEmptyComponent = {() =>  (

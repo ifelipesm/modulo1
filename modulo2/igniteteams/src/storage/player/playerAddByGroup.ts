@@ -8,18 +8,18 @@ import { PlayerStorageDTO } from "./playerStorageDTO";
 export async function playerAddByGroup(newPlayer: PlayerStorageDTO, group: string){
   try{
   
-    const storedGroupPlayers = await playerGetByGroup(group);
+    const storedPlayersByGroup = await playerGetByGroup(group);
 
-    const playerAlreadyExists = storedGroupPlayers.filter(
+    const playerAlreadyExists = storedPlayersByGroup.filter(
       player => player.name === newPlayer.name);
 
     if(playerAlreadyExists.length > 0){
       throw new AppError("Já existe um jogador com este nome");
     }
 
-    const storage = JSON.stringify([...storedGroupPlayers,newPlayer])
+    const newStorageData = JSON.stringify([...storedPlayersByGroup,newPlayer])
 
-    await AsyncStorage.setItem(`${PLAYER_COLLECTION}-${group}`,storage);
+    await AsyncStorage.setItem(`${PLAYER_COLLECTION}-${group}`, newStorageData);
   } catch(error){
     throw (error);
   }
