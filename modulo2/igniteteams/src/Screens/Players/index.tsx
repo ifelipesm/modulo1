@@ -12,12 +12,13 @@ import { Container, Form } from './styles';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
 import { ButtonIcon } from '@components/ButtonIcon';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { AppError } from '@utils/AppError';
 import { playerAddByGroup } from '@storage/player/playerAddByGroup';
 import { playerGetByGroupAndTeam } from '@storage/player/playerGetByGroupAndTeam';
 import { PlayerStorageDTO } from '@storage/player/playerStorageDTO';
 import { playerRemoveByGroup } from '@storage/player/playerRemoveByGroup';
+import { groupRemoveByName } from '@storage/group/groupRemoveByName';
 
 type routeParams = {
   group: string;
@@ -28,8 +29,10 @@ export function Players() {
   const [team,setTeam] = useState('Time A');
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
 
+  const navigation = useNavigation();
   const route = useRoute();
   const { group } = route.params as routeParams;
+
 
   const newPlayerNameInputRef = useRef<TextInput>(null);
 
@@ -85,6 +88,31 @@ export function Players() {
       } 
     }
 
+    async function groupRemove(){
+      try{
+        await groupRemoveByName(group);
+        navigation.navigate('groups');
+      }
+      catch(error){
+        if(error instanceof AppError){
+          Alert.alert('Remover Grupo', error.message);
+        } 
+        else {
+          console.log(error);
+          Alert.alert('Remover Grupo', 'Não foi possível remover o grupo.');
+        }
+      } 
+    }
+
+    async function handleGroupRemove(){
+      Alert.alert(
+        'Remover','Deseja Remover o grupo?',
+        [
+          {text:'Não',style:'cancel'},
+          {text:'Sim',onPress: ()  =>  groupRemove()},
+        ]
+      );
+    }
 
   useEffect(()=>{
     fetchPlayersByTeam();
@@ -158,6 +186,7 @@ export function Players() {
       <Button
       title="Remover Time"
       type="SECONDARY"
+      onRemove={()  =>  handleGroupRemove()}
       />
     </Container>
   );

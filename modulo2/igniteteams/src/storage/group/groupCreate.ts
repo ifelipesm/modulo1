@@ -15,9 +15,9 @@ export async function groupCreate(newGroup: string){
       throw new AppError('Já existe um grupo com esse nome');
     }
 
-    const storage = JSON.stringify([...storedGroups, newGroup]);
+    const newStorageData = JSON.stringify([...storedGroups, newGroup]);
 
-    await AsyncStorage.setItem(GROUP_COLLECTION, storage);
+    await AsyncStorage.setItem(GROUP_COLLECTION, newStorageData);
   
   }catch(error){
     throw error;
