@@ -5,7 +5,7 @@ import { TouchableOpacityProps } from 'react-native'
 type Props = TouchableOpacityProps & {
   title: string;
   type?: ButtonTypeStyleProps;
-  onRemove: () => void;
+  onRemove?: () => void;
 }
 
 export function Button({title,type='PRIMARY',onRemove,...rest}:Props) {

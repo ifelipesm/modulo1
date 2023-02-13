@@ -19,6 +19,7 @@ import { playerGetByGroupAndTeam } from '@storage/player/playerGetByGroupAndTeam
 import { PlayerStorageDTO } from '@storage/player/playerStorageDTO';
 import { playerRemoveByGroup } from '@storage/player/playerRemoveByGroup';
 import { groupRemoveByName } from '@storage/group/groupRemoveByName';
+import { Loading } from '@components/Loading';
 
 type routeParams = {
   group: string;
@@ -28,6 +29,7 @@ export function Players() {
   const [newPlayerName,setNewPlayerName] = useState('');
   const [team,setTeam] = useState('Time A');
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
+  const [isLoading,setIsLoading] = useState<boolean>(false);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -38,12 +40,20 @@ export function Players() {
 
     async function fetchPlayersByTeam(){
       try{
+        setIsLoading(true)
+      
         const playersByTeam = await playerGetByGroupAndTeam(group,team);
         setPlayers(playersByTeam);
+      
       }
       catch(error){
         console.log(error);
         Alert.alert('Jogador', 'Não foi possível exibir a lista de jogadores.');
+      }
+      finally{
+        setTimeout(()=>{
+          setIsLoading(false);
+        },350);
       }
     }
 
@@ -161,7 +171,8 @@ export function Players() {
           {players.length}
         </NumberOfPlayers>
       </HeaderList>
-      
+
+    { isLoading ? <Loading /> :
       <FlatList
         data={players}
         keyExtractor={item => item.name}
@@ -182,9 +193,9 @@ export function Players() {
           players.length === 0 && { flex:1 }
           ]}
       />
-
+    }
       <Button
-      title="Remover Time"
+      title="Remover turma"
       type="SECONDARY"
       onRemove={()  =>  handleGroupRemove()}
       />

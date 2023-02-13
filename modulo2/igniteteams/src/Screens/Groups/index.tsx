@@ -8,10 +8,13 @@ import { Button } from '@components/Button';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Container } from './styles';
 import { groupsGetAll } from '@storage/group/groupsGetAll';
+import { Loading } from '@components/Loading';
 
 
 export function Groups() {
   const [groups,setGroups]=useState<string[]>([])
+  const [isLoading,setIsLoading] = useState<boolean>(false);
+
   const navigation = useNavigation();
 
   function handleNewGroup(){
@@ -24,10 +27,18 @@ export function Groups() {
 
   async function fetchGroups(){
     try{
+      setIsLoading(true);
+
       const data = await groupsGetAll();
-      setGroups(data); 
-    } catch (error) {
+      setGroups(data);
+    } 
+    catch (error) {
       console.log(error);
+    } 
+    finally{
+      setTimeout(()=>{
+        setIsLoading(false);
+      },350);
     }
   }
 
@@ -42,7 +53,7 @@ export function Groups() {
         title="Turmas"
         subtitle="Jogue com a sua turma" 
       />
-
+    { isLoading ? <Loading /> :
       <FlatList
         data={groups}
         keyExtractor={item => item}
@@ -59,8 +70,9 @@ export function Groups() {
           />
         )}
       />
+    }
       <Button 
-        title="Criar Nova Turma" 
+        title="Criar nova turma" 
         type="PRIMARY"
         onPress={handleNewGroup}
       />
