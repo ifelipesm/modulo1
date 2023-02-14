@@ -1,15 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Background = styled.View`
-  position: absolute;
-  height: 132px;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  background-color: ${({ theme }) => theme.COLORS.GRAY_5};
-`;
-
-export const Content = styled.View`
+export const Container = styled.View`
 position: absolute;
 left: 0px;
 right: 0px;
@@ -21,7 +12,7 @@ box-shadow: 0px 0px 30px;
 border-radius: 20px;
 `;
 
-export const Form = styled.Text`
+export const FormArea = styled.Text`
 display: flex;
 flex-direction: column;
 align-items: flex-start;
@@ -33,4 +24,24 @@ height: 430px;
 left: 24px;
 right: 24px;
 top: 40px;
+`;
+
+export const NameInput = styled.TextInput`
+
+`;
+
+export const DescriptionInput = styled.TextInput`
+
+`;
+
+export const DateInput = styled.TextInput`
+
+`;
+
+export const SelectHealthy = styled.Button`
+
+`;
+
+export const SelectUnhealthy = styled.Button`
+
 `;
