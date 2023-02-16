@@ -21,9 +21,6 @@ export const Container = styled(TouchableOpacity)<Props>`
   right: 24px;
   bottom: 40px;
 
-  background: ${({ theme,type }) => 
-  type === 'PRIMARY' ? theme.COLORS.GRAY_2 : theme.COLORS.WHITE
-  };
   border-radius: 6px;
   ${({ theme,type })  =>  css`
   background: ${type === 'PRIMARY' ? theme.COLORS.GRAY_2 : theme.COLORS.WHITE};

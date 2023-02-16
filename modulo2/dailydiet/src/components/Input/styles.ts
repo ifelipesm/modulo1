@@ -2,96 +2,152 @@ import { TextInput } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
+
+display: flex;
+flex-direction: column;
+align-items: flex-start;
 `;
 
-export const InputView = styled.View`
-margin-top: 24px;
+export const NameView = styled(Container)`
+width: 100%;
+min-height: 70px;
+max-height: 70px;
+
+padding: 0px;
+
 `;
 
-export const NameLabel = styled.Text`
-  width: 39px;
-  height: 18px;
+export const DescriptionView = styled(Container)`
+width: 100%;
+min-height: 142px;
+max-height: 142px;
+
+padding: 0px;
+`;
+
+export const DateView = styled(Container)`
+width: 153.5px;
+min-height: 70px;
+max-height: 70px;
+
+padding: 0px;
+`;
+
+  export const TextInputBorder = styled.View`
+
+    border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
+    border-radius: 6px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 14px;
+
+  `;
+  export const TextLabel = styled.Text`
+    
+    ${({ theme })  =>  css`
+      font-size: ${theme.FONT_SIZE.SM_2}px;
+      font-family: ${theme.FONT_FAMILY.BOLD};
+      color: ${theme.COLORS.GRAY_2};
+    `};
+    
+    line-height: 18px;
+    margin-bottom: 4px;
+  `;
+  export const TextInputFont = styled(TextInput)`
+    ${({ theme })  =>  css`
+      font-size: ${theme.FONT_SIZE.MD_1}px;
+      font-family: ${theme.FONT_FAMILY.BOLD};
+      color: ${theme.COLORS.GRAY_1};
+    `};
+    line-height: 18px;
+  `;
+
+  export const NameLabel = styled(TextLabel)`
+    width: 39px;
+    height: 18px;
+  `;
+  export const NameBox = styled(TextInputBorder)`
+    width: 327px;
+    height: 48px;
+  `;  
+  export const NameText = styled(TextInputFont)`
+    width: 299px;
+    height: 20px;
+  `;
+
+
+  export const DescriptionLabel = styled(TextLabel)`
+    width: 64px;
+    height: 18px;
+    margin-top: 24px;
+    `;
+  export const DescriptionBox = styled(TextInputBorder)`
+    width: 327px;
+    height: 120px;
+    padding: 14px;
+  `;
+  export const DescriptionText = styled(TextInputFont)`
+    width: 299px;
+    height: 92px;
+    `;
+
+  export const DayLabel = styled(TextLabel)` 
+    width: 32px;
+    height: 18px;
+    
+    display: flex;
+    align-items: center;
+    margin-top: 48px;
+    `;
+
+  export const DayBox = styled(TextInputBorder)`
+    width: 153.5px;
+    height: 48px;
+    
+    padding: 14px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
+    border-radius: 6px;
+    box-sizing: border-box;
+  `
   
-  ${({ theme })  =>  css`
-    font-size: ${theme.FONT_SIZE.SM_2}px;
-    font-family: ${theme.FONT_FAMILY.BOLD};
-    color: ${theme.COLORS.GRAY_2};
-  `};
-  line-height: 18px;
-  margin-bottom: 4px;
-`;
+  export const HourLabel = styled(TextLabel)`
+    width: 32px;
+    height: 18px;
 
-export const NameBox = styled(TextInput)`
-width: 327px;
-height: 48px;
+    left: 20px;
+    margin-top: 48px;
+    `;
+  export const HourBox = styled(DayBox)`
+    left: 20px;
+    `;
 
-border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
-border-radius: 6px;
-box-sizing: border-box;
-`;
-
-
-export const DescriptionLabel = styled.Text`
-  width: 64px;
-  height: 18px;
-
-  ${({ theme })  =>  css`
-    font-size: ${theme.FONT_SIZE.SM_2}px;
-    font-family: ${theme.FONT_FAMILY.BOLD};
-    color: ${theme.COLORS.GRAY_2};
-  `};
-  line-height: 18px;
-  margin-bottom: 4px;
-`
-
-export const DescriptionBox = styled(TextInput)`
-  width: 327px;
-  height: 120px;
-
-  padding: 14px;
-  box-sizing: border-box;
-  border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
-  border-radius: 6px;
-
-`;
-
-
-export const DateLabel = styled.Text` 
-  width: 32px;
-  height: 18px;
+  export const DayText = styled(TextInputFont)`
+    width: 125.5px;
+    height: 20px;
+  `;
   
-  ${({ theme }) => css`
-    font-size: ${theme.FONT_SIZE.SM_2}px;
-    color: ${theme.COLORS.GRAY_2};
-    font-family: ${theme.FONT_FAMILY.BOLD};
-  `}
-  line-height: 18px;
-  
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
-`
+  export const HourText = styled(TextInputFont)`
+    width: 125.5px;
+    height: 20px;
+  `;
 
-export const DateBox = styled.TextInput`
-  width: 153.5px;
-  height: 48px;
-  
-  padding: 14px;
-  box-sizing: border-box;
-  border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
-  border-radius: 6px;
-  
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
+  export const DietLabel = styled(TextLabel)`
+    width: 150px;
+    height: 18px;
+    
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    `;
 
-export const HourBox = styled(DateBox)`
-  left: 20px;
-`
 
-export const HourLabel = styled(DateLabel)`
-  left: 20px;
-  margin-bottom: 4px;
-`;
+
 

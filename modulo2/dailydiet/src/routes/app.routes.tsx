@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { CreateMeal } from '@screens/CreateMeal';
+import  CreateMeal  from '@screens/CreateMeal';
 import { CreateMealSuccess } from '@screens/CreateMealSuccess';
 import { DietOverview } from '@screens/DietOverview';
 import { DietStats } from '@screens/DietStats';

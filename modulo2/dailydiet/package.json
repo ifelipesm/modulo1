@@ -27,7 +27,8 @@
     "react-native-styled-components": "^2.1.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.9",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "@react-native-community/datetimepicker": "6.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

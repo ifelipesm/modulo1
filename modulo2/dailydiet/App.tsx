@@ -4,6 +4,8 @@ import theme from '@theme/index';
 import { StatusBar } from 'react-native';
 import { Loading } from '@components/Loading';
 import { Routes } from "@routes/index";
+import CreateMeal from '@screens/CreateMeal';
+import { AppRoutes } from '@routes/app.routes';
 
 
 export default function App() {
@@ -17,7 +19,7 @@ export default function App() {
       translucent={true}  
       />
     { fontsLoaded ? 
-    <Routes/>
+    <Routes />
     : <Loading/> }
     </ThemeProvider>
   );

@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 export const Background = styled.View`
   position: absolute;
@@ -26,7 +26,6 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 0px;
-gap: 24px;
 
 position: absolute;
 height: 430px;
@@ -34,3 +33,36 @@ left: 24px;
 right: 24px;
 top: 40px;
 `;
+
+export const DayHourView = styled.View`
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+
+width: 327px;
+height: 70px;
+
+`;
+
+export const SelectView = styled.View`
+
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+
+width: 100%;
+height: 76px;
+
+`;
+
+export const SelectRow = styled.View`
+display: flex;
+flex-direction: row;
+align-items: center;
+
+width: 327px;
+height: 50px;
+
+margin-top: 8px;
+`;
+
