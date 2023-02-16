@@ -4,7 +4,7 @@ import theme from '@theme/index';
 import { StatusBar } from 'react-native';
 import { Loading } from '@components/Loading';
 import { Routes } from "@routes/index";
-import CreateMeal from '@screens/CreateMeal';
+import NewMeal from '@screens/NewMeal';
 import { AppRoutes } from '@routes/app.routes';
 
 

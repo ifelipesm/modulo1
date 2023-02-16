@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
 
 import { mealCreate } from '@storage/Meal/mealCreate';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
 
-import { Content, DayHourView, Form, SelectRow, SelectView } from './styles';
+import { Content, DayHourRow, Form, SelectRow, SelectView } from './styles';
 import { Header } from '@components/Header';
 import { InputName } from '@components/Input/InputName';
 import { InputDescription } from '@components/Input/InputDescription';
@@ -16,8 +16,9 @@ import { SelectGreen } from '@components/Select/SelectGreen';
 import { SelectRed } from '@components/Select/SelectRed';
 
 import dayjs from 'dayjs';
+import { TextInput } from 'react-native';
 
-export default function CreateMeal() {
+export function NewMeal() {
   const [mealName,setMealName] = useState<string>('');
   const [mealDescription,setMealDescription] = useState<string>('');
   const [mealDay,setMealDay] = useState<string>('');
@@ -29,9 +30,30 @@ export default function CreateMeal() {
 
   const navigation = useNavigation();
 
-  function handleAddMeal(){
+  const newMealNameInputRef = useRef<TextInput>(null);
+  const newMealDescriptionInputRef = useRef<TextInput>(null);
+  const newMealDayInputRef = useRef<TextInput>(null);
+  const newMealHourInputRef = useRef<TextInput>(null);
 
-   /* const meal = {
+  function setNameInputRef(){
+    setMealName(mealName);
+    newMealNameInputRef.current?.blur();
+  }
+  function setDescriptionInputRef(){
+    setMealDescription(mealDescription);
+    newMealDescriptionInputRef.current?.blur();
+  }
+  function setDayInputRef(){
+    setMealDay(mealDay);
+    newMealDayInputRef.current?.blur();
+  }
+  function setHourInputRef(){
+    setMealHour(mealHour);
+    newMealHourInputRef.current?.blur();
+  }
+  
+  function handleAddMeal(){
+    const meal = {
       name: mealName,
       description: mealDescription,
       day: mealDay,
@@ -39,7 +61,6 @@ export default function CreateMeal() {
       diet: mealDiet,
     }
     mealCreate(meal); 
-    */
     navigation.navigate('success');
   }
 
@@ -61,28 +82,40 @@ export default function CreateMeal() {
         <Form>
           <InputName
           text='Name'
+          inputRef={newMealNameInputRef} 
           onChangeText={setMealName}
           value={mealName}
+          onSubmitEditing={setNameInputRef} // submit on keyboard
+          returnKeyType="done"  // return of submit on keyboard
           />        
 
           <InputDescription
             text='Descrição'
+            inputRef={newMealDescriptionInputRef} 
             onChangeText={setMealDescription}
             value={mealDescription}
+            onSubmitEditing={setDescriptionInputRef} // submit on keyboard
+            returnKeyType="done"  // return of submit on keyboard
           />
 
-          <DayHourView>
+          <DayHourRow>
             <InputDay
               text='Data'
+              inputRef={newMealDayInputRef} 
               onChangeText={setMealDay}
               value={mealDay}
+              onSubmitEditing={setDayInputRef} // submit on keyboard
+              returnKeyType="done"  // return of submit on keyboard
             />        
             <InputHour
               text='Hora'
+              inputRef={newMealHourInputRef} 
               onChangeText={setMealHour}
               value={mealHour}
+              onSubmitEditing={setHourInputRef} // submit on keyboard
+              returnKeyType="done"  // return of submit on keyboard
             />     
-          </DayHourView>
+          </DayHourRow>
 
           <SelectView>       
             <DietLabel>Está dentro da dieta?</DietLabel>
@@ -91,7 +124,7 @@ export default function CreateMeal() {
               <SelectRed text='Não'  pressed={SetUnhealthyMeal} selected={isRedSelected} />         
             </SelectRow>
           </SelectView>  
-
+          
         </Form>
         <Button value={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
       </Content>

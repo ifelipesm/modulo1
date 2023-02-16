@@ -10,9 +10,9 @@ export function InputDescription({text,inputRef, ...rest}:Props) {
   return (
     <DescriptionView>
       <DescriptionLabel >{text}</DescriptionLabel>
-      <DescriptionBox >
-        <DescriptionText {...rest}/>
-      </DescriptionBox>
+        <DescriptionBox>
+          <DescriptionText {...rest}/>
+        </DescriptionBox>
     </DescriptionView>
   );
 }

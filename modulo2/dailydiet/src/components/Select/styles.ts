@@ -12,7 +12,7 @@ export const RedContainer = styled.View`
 left: 8px;
 `;
 
-export const ButtonTouchableView = styled(TouchableOpacity)<SelectStyleProps>`
+export const ButtonTouchableView = styled.TouchableOpacity`
 
   width: 159.5px;
   height: 50px;
@@ -29,11 +29,13 @@ export const ButtonTouchableView = styled(TouchableOpacity)<SelectStyleProps>`
 export const ButtonTouchableViewGreen = styled(ButtonTouchableView)<SelectStyleProps>`
   ${({ theme,selected }) => css`
       background: ${ (selected) ?  theme.COLORS.GREEN_LIGHT :  theme.COLORS.GRAY_6 };
+      border: ${(selected) ? theme.COLORS.GREEN_DARK : {} }
   `};
 `;
 export const ButtonTouchableViewRed= styled(ButtonTouchableView)<SelectStyleProps>`
   ${({ theme,selected }) => css`
       background: ${(selected) ? theme.COLORS.RED_LIGHT : theme.COLORS.GRAY_6 };
+      border: ${(selected) ?  theme.COLORS.RED_DARK : {} };
   `};
 `;
 
@@ -54,7 +56,7 @@ export const DietText = styled.Text`
   text-align: center;
 `;
 
-export const DietIcon = styled(Circle).attrs<SelectStyleProps>(({ theme,type}) => ({
+export const DietIcon = styled(Circle).attrs<SelectStyleProps>(() => ({
   size: 8,
   weight: 'fill', 
 }))`
@@ -63,10 +65,10 @@ height: 8px;
 right: 8px;
 `;
 
-export const DietIconRed = styled(DietIcon).attrs<SelectStyleProps>(({ theme,type}) => ({
+export const DietIconRed = styled(DietIcon).attrs<SelectStyleProps>(({theme}) => ({
   color: theme.COLORS.RED_DARK,
 }))``;
-export const DietIconGreen = styled(DietIcon).attrs<SelectStyleProps>(({ theme,type}) => ({
+export const DietIconGreen = styled(DietIcon).attrs<SelectStyleProps>(({ theme }) => ({
   color: theme.COLORS.GREEN_DARK,
 }))``;
 

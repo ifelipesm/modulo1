@@ -1,7 +1,7 @@
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      createMeal: undefined;
+      NewMeal: undefined;
       overview: { 
         meal: {
           name: string;
