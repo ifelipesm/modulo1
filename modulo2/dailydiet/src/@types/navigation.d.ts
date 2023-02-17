@@ -1,11 +1,38 @@
+import { mealStorageDTO } from "@storage/Meal/mealStorageDTO";
+
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      groups: undefined;
-      new: undefined; // esta rota não possui parâmetros
-      players: {
-        group: string; // objeto do tipo string é passado como parâmetro da rota players
+      NewMeal: undefined;
+      overview: { 
+        meal: {
+          name: string;
+          description: string;
+          day: string;
+          hour: string;
+          diet: boolean;
+        }
+      }
+      stats: undefined;
+      edit: undefined;
+      success: {
+        meal: {
+          name: mealName,
+          description: mealDescription,
+          day: mealDay,
+          hour: mealHour,
+          diet: mealDiet,
+        }
+        }
+      }
+      show: {
+        meal: {
+          name: string;
+          description: string;
+          day: string;
+          hour: string;
+          diet: boolean;
+        }
       }
     }
   }
-}

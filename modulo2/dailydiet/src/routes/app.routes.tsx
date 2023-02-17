@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { CreateMeal } from '@screens/CreateMeal';
-import { CreateMealSuccess } from '@screens/CreateMealSuccess';
+import {  NewMeal }  from '@screens/NewMeal';
+import { NewMealSuccess } from '@screens/NewMealSuccess';
 import { DietOverview } from '@screens/DietOverview';
 import { DietStats } from '@screens/DietStats';
 import { EditMeal } from '@screens/EditMeal';
@@ -14,6 +14,10 @@ export function AppRoutes(){
   return(
     <Navigator  screenOptions={{headerShown:false}}>
       <Screen
+        name="NewMeal"
+        component={NewMeal}
+      />
+      <Screen
         name="overview"
         component={DietOverview}
       />
@@ -26,12 +30,8 @@ export function AppRoutes(){
         component={EditMeal}
       />
       <Screen
-        name="createMeal"
-        component={CreateMeal}
-      />
-      <Screen
         name="success"
-        component={CreateMealSuccess}
+        component={NewMealSuccess}
       />
       <Screen
         name="show"
