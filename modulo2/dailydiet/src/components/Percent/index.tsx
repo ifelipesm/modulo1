@@ -1,13 +1,12 @@
 import { Container, Subtitle, Title } from './styles';
 
 type Props = {
-  onDiet: boolean;
   number: number;
 }
 
-export function Percent({number,onDiet=true}:Props) {
+export function Percent({number}:Props) {
   return (
-    <Container diet={onDiet}>
+    <Container percentage={number}>
       <Title>{number}%</Title>
       <Subtitle>das refeições dentro da dieta</Subtitle>
     </Container>

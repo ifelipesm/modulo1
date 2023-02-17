@@ -56,8 +56,8 @@ import { Plus } from 'phosphor-react-native'
   `;
 
   export const ContainerNew = styled(BaseContainer)`
-    width: 327px;
-    height: 50px;
+    min-width: 345px;
+    min-height: 55px;
 
     ${({ theme })  =>  css`
     background: ${theme.COLORS.GRAY_2};

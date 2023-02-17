@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native';
 
   type PercentStyleProps = {
-    diet: boolean;
+    percentage: number;
   }
 
   export const Container = styled.View<PercentStyleProps>`
@@ -19,7 +19,7 @@ import styled, { css } from 'styled-components/native';
     right: 24px;
     top: 136px;
 
-    background: ${({theme,diet}) => diet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
+    background: ${({theme,percentage}) => percentage >= 50 ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
     border-radius: 8px;
   `;
 
