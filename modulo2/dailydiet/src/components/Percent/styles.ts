@@ -1,0 +1,58 @@
+import styled, { css } from 'styled-components/native';
+
+  type PercentStyleProps = {
+    diet: boolean;
+  }
+
+  export const Container = styled.View<PercentStyleProps>`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 20px 16px;
+    isolation: isolate;
+
+    position: absolute;
+    height: 102px;
+    left: 24px;
+    right: 24px;
+    top: 136px;
+
+    background: ${({theme,diet}) => diet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
+    border-radius: 8px;
+  `;
+
+  export const Title = styled.Text`
+    min-width: 115px;
+    height: 42px;
+
+    ${({theme}) => css`
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    font-size: ${theme.FONT_SIZE.XL}px;
+    color: ${theme.COLORS.GRAY_1};
+    `};
+    line-height: 42px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+  `;
+
+  export const Subtitle = styled.Text`
+    width: 295px;
+    height: 18px;
+
+    ${({theme}) => css`
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+    font-size: ${theme.FONT_SIZE.SM_2}px;
+    color: ${theme.COLORS.GRAY_2};
+    `};
+    line-height: 18px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+      
+  `;

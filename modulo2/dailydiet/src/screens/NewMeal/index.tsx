@@ -75,9 +75,13 @@ export function NewMeal() {
     setMealDiet(false);
   }
 
+  function goHome(){
+    navigation.navigate('overview');
+  }
+
   return (
     <>
-    <Header title='Nova Refeição'/>
+    <Header redirectTo={goHome} title='Nova Refeição'/>
       <Content>
         <Form>
           <InputName

@@ -29,8 +29,8 @@ import styled, { css } from 'styled-components/native';
 
     position: absolute;
     height: 430px;
-    left: 24px;
-    right: 24px;
+    left: 30px;
+    right: 30px;
     top: 40px;
   `;
 
@@ -64,6 +64,6 @@ import styled, { css } from 'styled-components/native';
 
   export const ButtonView = styled.View`
     top: 610px;
-    right: 30px;
+    right: 24px;
     padding: 16px 30px;
   `;
