@@ -1,27 +1,36 @@
 import { TextInput } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
-  export const ContainerView = styled.View`
+  export const NameView = styled.View`
+    width: 100%;
+    min-height: 70px;
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   `;
 
-  export const NameView = styled(ContainerView)`
-    width: 100%;
-    min-height: 70px;
-  `;
-
-  export const DescriptionView = styled(ContainerView)`
+  export const DescriptionView = styled.View`
     width: 100%;
     min-height: 142px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
     padding-top: 24px;
   `;
 
-  export const DateView = styled(ContainerView)`
+  export const DateView = styled.View`
+  
     width: 153.5px;
     min-height: 70px;
     max-height: 70px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
   `;
 
   export const TextInputBorder = styled.View`
@@ -85,13 +94,14 @@ import styled, { css } from 'styled-components/native';
     width: 327px;
     height: 120px;
     padding: 14px;
+
+    text-align: justify;
   `;
 
   export const DescriptionText = styled(TextInputFont)`
     width: 299px;
     height: 92px;
-    
-    text-align: justify;
+
   `;
 
   export const DayLabel = styled(TextLabel)` 

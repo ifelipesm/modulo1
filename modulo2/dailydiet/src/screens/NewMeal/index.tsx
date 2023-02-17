@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { mealCreate } from '@storage/Meal/mealCreate';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
 
-import { Content, DayHourRow, Form, SelectRow, SelectView } from './styles';
+import { ButtonView, Content, DayHourRow, Form, SelectRow, SelectView } from './styles';
 import { Header } from '@components/Header';
 import { InputName } from '@components/Input/InputName';
 import { InputDescription } from '@components/Input/InputDescription';
@@ -61,7 +61,7 @@ export function NewMeal() {
       diet: mealDiet,
     }
     mealCreate(meal); 
-    navigation.navigate('success');
+    navigation.navigate('success',{meal});
   }
 
   function SetHealthyMeal(){
@@ -94,8 +94,8 @@ export function NewMeal() {
             inputRef={newMealDescriptionInputRef} 
             onChangeText={setMealDescription}
             value={mealDescription}
-            onSubmitEditing={setDescriptionInputRef} // submit on keyboard
-            returnKeyType="done"  // return of submit on keyboard
+            onSubmitEditing={setDescriptionInputRef} 
+            returnKeyType="done"  
           />
 
           <DayHourRow>
@@ -104,16 +104,16 @@ export function NewMeal() {
               inputRef={newMealDayInputRef} 
               onChangeText={setMealDay}
               value={mealDay}
-              onSubmitEditing={setDayInputRef} // submit on keyboard
-              returnKeyType="done"  // return of submit on keyboard
+              onSubmitEditing={setDayInputRef} 
+              returnKeyType="done"  
             />        
             <InputHour
               text='Hora'
               inputRef={newMealHourInputRef} 
               onChangeText={setMealHour}
               value={mealHour}
-              onSubmitEditing={setHourInputRef} // submit on keyboard
-              returnKeyType="done"  // return of submit on keyboard
+              onSubmitEditing={setHourInputRef} 
+              returnKeyType="done"  
             />     
           </DayHourRow>
 
@@ -126,7 +126,9 @@ export function NewMeal() {
           </SelectView>  
           
         </Form>
-        <Button value={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
+        <ButtonView>
+          <Button  value={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
+        </ButtonView>
       </Content>
     </>
   );

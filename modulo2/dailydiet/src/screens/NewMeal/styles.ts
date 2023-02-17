@@ -1,4 +1,3 @@
-import { InputContainer } from '@components/Input/styles';
 import styled, { css } from 'styled-components/native';
 
   export const Background = styled.View`
@@ -46,7 +45,7 @@ import styled, { css } from 'styled-components/native';
     padding-top: 24px;
   `;
 
-  export const SelectView = styled(InputContainer)`
+  export const SelectView = styled.View`
     width: 100%;
     min-height: 76px;
     padding-top: 24px;
@@ -63,3 +62,8 @@ import styled, { css } from 'styled-components/native';
     margin-top: 8px;
   `;
 
+  export const ButtonView = styled.View`
+    top: 610px;
+    right: 30px;
+    padding: 16px 30px;
+  `;
