@@ -5,11 +5,12 @@ type Props = {
   hour: string;
   meal: string;
   diet: boolean;
+  onRedirect: () => void;
 }
 
-export function MealCard({hour,meal,diet}: Props) {
+export function MealCard({hour,meal,diet,onRedirect}: Props) {
   return (
-    <Container>
+    <Container onPress={onRedirect}>
 
       <Hour>{hour}</Hour>
       <Icon source={divider} />

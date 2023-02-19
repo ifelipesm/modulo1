@@ -1,9 +1,10 @@
 import { Circle } from 'phosphor-react-native';
+import { TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
-  export const Container = styled.View`
+  export const Container = styled(TouchableOpacity)`
 
-    width: 100%;
+    width: 345px;
     height: 49px;
     padding: 14px 16px 14px 12px;
     

@@ -44,7 +44,7 @@ import styled, { css } from 'styled-components/native';
 
   export const SectionTitle = styled.Text`
 
-    width: 74px;
+    min-width: 74px;
     height: 23px;
     margin-top: 32px;
     margin-bottom: 8px;
