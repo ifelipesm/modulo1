@@ -52,15 +52,15 @@ export function NewMeal() {
     newMealHourInputRef.current?.blur();
   }
   
-  function handleAddMeal(){
+  async function handleAddMeal(){
     const meal = {
       name: mealName,
       description: mealDescription,
       day: mealDay,
       hour: mealHour,
       diet: mealDiet,
-    }
-    mealCreate(meal); 
+    };
+    await mealCreate(meal);
     navigation.navigate('success',{meal});
   }
 
@@ -75,9 +75,13 @@ export function NewMeal() {
     setMealDiet(false);
   }
 
+  function goHome(){
+    navigation.navigate('overview');
+  }
+
   return (
     <>
-    <Header title='Nova Refeição'/>
+    <Header redirectTo={goHome} title='Nova Refeição'/>
       <Content>
         <Form>
           <InputName

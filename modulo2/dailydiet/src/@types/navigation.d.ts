@@ -3,18 +3,18 @@ import { mealStorageDTO } from "@storage/Meal/mealStorageDTO";
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      NewMeal: undefined;
-      overview: { 
-        meal: {
-          name: string;
-          description: string;
-          day: string;
-          hour: string;
-          diet: boolean;
+      new: undefined;
+      overview: undefined; 
+      stats: {
+        statistics: {
+          percentageValue: number,
+          sequence:number,
+          total: number,
+          diet: number,
+          outOfDiet: number,
         }
       }
-      stats: undefined;
-      edit: undefined;
+      edit: mealStorageDTO;
       success: {
         meal: {
           name: mealName,
@@ -24,7 +24,6 @@ export declare global {
           diet: mealDiet,
         }
         }
-      }
       show: {
         meal: {
           name: string;
@@ -36,3 +35,4 @@ export declare global {
       }
     }
   }
+}

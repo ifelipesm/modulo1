@@ -1,16 +1,18 @@
+import { GoBack } from '@components/GoBack';
 import React from 'react';
-import { Background, Icon, Title } from './styles';
+import { TouchableOpacityProps } from 'react-native';
+import { Background, Title } from './styles';
 
-type Props = {
+type Props = TouchableOpacityProps & {
   title: string;
+ redirectTo: () => void;
 }
 
-export function Header({  title }:Props) {
+export function Header({title,redirectTo}:Props) {
   return (
     <Background>
-      <Icon/>
+      <GoBack redirect={redirectTo}/>
       <Title>{title}</Title>
-  
     </Background>
   );
 }

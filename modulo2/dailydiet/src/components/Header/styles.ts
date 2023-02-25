@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/native';
 import { ArrowLeft } from 'phosphor-react-native';
+import { TouchableOpacity } from 'react-native';
 
 export const Background = styled.View`
   position: absolute;
@@ -26,9 +27,3 @@ export const Title = styled.Text`
   text-align: center;
 `;
 
-export const Icon = styled(ArrowLeft)`
-  width: 24px;
-  height: 24px;
-  left: 24px;
-  top: 56px;
-`

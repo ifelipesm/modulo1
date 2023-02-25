@@ -14,7 +14,7 @@ export function AppRoutes(){
   return(
     <Navigator  screenOptions={{headerShown:false}}>
       <Screen
-        name="NewMeal"
+        name="new"
         component={NewMeal}
       />
       <Screen
