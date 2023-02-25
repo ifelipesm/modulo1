@@ -1,53 +1,51 @@
-import { Button } from '@components/Button';
 import { ButtonNew } from '@components/Button/ButtonNew';
 import { HomeHeader } from '@components/HomeHeader';
 import { MealCard } from '@components/MealCard';
 import { Percent } from '@components/Percent';
 import { useNavigation } from '@react-navigation/native';
-import { mealGetByDay } from '@storage/Meal/mealGetByDay';
 import { mealsGetAll } from '@storage/Meal/mealsGetAll';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
 import { useEffect, useState } from 'react';
 import { Alert, SectionList } from 'react-native';
 import { LabelNew, Meals, NewContainer, SectionTitle } from './styles';
-
+import { storageClear } from '@storage/storageClear';
+import { mealsGetByDiet } from '@storage/Meal/mealsGetByDiet';
 
 
 export function DietOverview() {
   const [meals,setMeals] = useState<mealStorageDTO[]>([]);
-  const [days,setDays] = useState<string>('');
-  const [hours,setHours] = useState<string>('');
-  const [names,setNames] = useState<string>('');
-  const [diets,setDiets] = useState<boolean>(false);
-  const Healthyness = 80.33;
-  const mealDay = '16.02.23';
-
+  const [percentage,setPercentage] = useState<number>(0);
+  
   const navigation = useNavigation();
+  
+  
+  const DATA = transformListInSectionList(meals);
 
-  const DATA = [ 
-    {
-      title: days,
-      data: [
-        {
-          hour: hours,
-          name: names,
-          diet: diets,
-        }
-      ],
-    }
-  ];
+   function transformListInSectionList(meals: mealStorageDTO[]) {
+    const arrayCompared = meals.reduce((acc: any, meal) => {
+      if (!acc[meal.day]) {
+        acc[meal.day] = [];
+      }
+      acc[meal.day].push(meal);
+      return acc;
+    }, {});
+
+    const sectionListData = Object.keys(arrayCompared).map((item) => {
+      const data = arrayCompared[item];
+      return {
+        title: item,
+        data,
+      };
+    });
+
+    return sectionListData;
+  }
 
   async function fetchData(){
     try{
-      const meals = await mealsGetAll();
-      setMeals(meals);
-
-      meals.map(meal => {
-       setDays(meal.day);
-       setHours(meal.hour);
-       setNames(meal.name);
-       setDiets(meal.diet);
-      })
+      //storageClear();
+      const mealsData = await mealsGetAll();
+      setMeals(mealsData);
     }
     catch(error){
       console.log(error);
@@ -55,6 +53,19 @@ export function DietOverview() {
     }
   }
 
+  async function getDietPercentage(){
+      try  {     
+        const totalMeals = await mealsGetAll();
+        const dietMeals = await mealsGetByDiet(true);
+        const percentageValue = Math.round((dietMeals.length/totalMeals.length)*100);
+        setPercentage(percentageValue)
+    }
+    catch(error){
+      console.log(error);
+      Alert.alert('Porcentagem', 'Não foi possível exibir a porcentagem de refeições na dieta.');
+    }
+  }
+    
   function goNewMeal(){
     navigation.navigate('new');
   }
@@ -65,31 +76,30 @@ export function DietOverview() {
 
   useEffect(()=>{
     fetchData();
+    getDietPercentage();
   },[]);
-
+  
   return (
     <>
       <HomeHeader />
-      <Percent number={Healthyness} />
+      <Percent number={percentage} />
       <Meals>
         <NewContainer>
           <LabelNew>Refeições</LabelNew>
           <ButtonNew title='Nova Refeição' redirect={goNewMeal} />
         </NewContainer>
-        { meals.map(meal => 
-          <SectionList
-          sections={DATA}
-          keyExtractor={(item,index) => item+index.toString()}
-          renderItem={({item}) => (
-            <MealCard hour={meal.hour} meal={meal.name} diet={meal.diet} onRedirect={goEditMeal}/>
-          )}
-          renderSectionHeader={({section: {title}}) => (
-            <SectionTitle>{meal.day}</SectionTitle>
-          )}
-        />
-        )
-        }
-
+            {
+              <SectionList
+                sections={DATA}
+                keyExtractor={(item,index) => item+index.toString()}
+                renderItem={({item}) => (
+                  <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={goEditMeal}/>
+                )}
+                renderSectionHeader={({section: {title}}) => (
+                  <SectionTitle>{title}</SectionTitle>
+                )}
+              />
+            }
       </Meals>
     </>
   );

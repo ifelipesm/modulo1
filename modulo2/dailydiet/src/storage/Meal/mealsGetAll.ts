@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { DAY_COLLECTION, MEAL_COLLECTION } from "@storage/storageConfig"
+import { MEAL_COLLECTION } from "@storage/storageConfig"
 import { mealStorageDTO } from "./mealStorageDTO";
 
 

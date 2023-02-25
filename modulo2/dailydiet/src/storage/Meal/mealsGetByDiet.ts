@@ -2,13 +2,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MEAL_COLLECTION } from "@storage/storageConfig";
 import { mealStorageDTO } from "./mealStorageDTO";
 
-export async function mealGetByDiet(diet: boolean){
+export async function mealsGetByDiet(diet: boolean){
   try{
-    const storage = await AsyncStorage.getItem(`${MEAL_COLLECTION}-${diet}`);
+    const storage = await AsyncStorage.getItem(`${MEAL_COLLECTION}`);
 
     const meals: mealStorageDTO[] = storage ? JSON.parse(storage) : [];
+    
+    const dietMeals = meals.filter((item) => item.diet === diet);
 
-    return meals;
+    return dietMeals;
   }
   catch(error){
     throw error;

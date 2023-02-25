@@ -1,10 +1,6 @@
 import { SuccessButton } from '@components/SuccessButton';
 import { SuccessHeader } from '@components/SuccessHeader';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
-import { useState } from 'react';
-import { TextInput } from 'react-native';
-import { Container } from './styles';
 
 type routeParams = {
   meal: {
@@ -25,7 +21,7 @@ export function NewMealSuccess() {
   const { meal } = route.params as routeParams;
   
   function goToHome(){
-  navigation.navigate('overview',{meal});
+  navigation.navigate('overview');
   }
   
   return (
