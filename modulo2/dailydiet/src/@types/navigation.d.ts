@@ -5,8 +5,16 @@ export declare global {
     interface RootParamList {
       new: undefined;
       overview: undefined; 
-      stats: undefined;
-      edit: undefined;
+      stats: {
+        statistics: {
+          percentageValue: number,
+          sequence:number,
+          total: number,
+          diet: number,
+          outOfDiet: number,
+        }
+      }
+      edit: mealStorageDTO;
       success: {
         meal: {
           name: mealName,
@@ -16,7 +24,6 @@ export declare global {
           diet: mealDiet,
         }
         }
-      }
       show: {
         meal: {
           name: string;
@@ -28,3 +35,4 @@ export declare global {
       }
     }
   }
+}

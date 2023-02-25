@@ -9,4 +9,5 @@ export const Icon = styled(ArrowLeft)`
   top: 56px;
 `
 
-export const TouchableArea = styled(TouchableOpacity)``;
+export const TouchableArea = styled(TouchableOpacity)`
+`

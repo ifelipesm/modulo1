@@ -11,10 +11,13 @@ import { LabelNew, Meals, NewContainer, SectionTitle } from './styles';
 import { storageClear } from '@storage/storageClear';
 import { mealsGetByDiet } from '@storage/Meal/mealsGetByDiet';
 
-
 export function DietOverview() {
   const [meals,setMeals] = useState<mealStorageDTO[]>([]);
   const [percentage,setPercentage] = useState<number>(0);
+  const [sequenceAmount,setSequenceAmount] = useState<number>(0);
+  const [totalAmount,setTotalAmount] = useState<number>(0);
+  const [onDietAmount,setOnDietAmount] = useState<number>(0);
+  const [outOfDietAmount,setOutOfDietAmount] = useState<number>(0);
   
   const navigation = useNavigation();
   
@@ -53,6 +56,15 @@ export function DietOverview() {
     }
   }
 
+  async function setStatistics(){
+    const totalMeals = await mealsGetAll();
+    const dietMeals = await mealsGetByDiet(true);
+    const outOfDietMeals = await mealsGetByDiet(false);
+    setOnDietAmount(dietMeals.length);
+    setOutOfDietAmount(outOfDietMeals.length);
+    setTotalAmount(totalMeals.length);
+  }
+
   async function getDietPercentage(){
       try  {     
         const totalMeals = await mealsGetAll();
@@ -70,19 +82,31 @@ export function DietOverview() {
     navigation.navigate('new');
   }
 
-  function goEditMeal(){
-    navigation.navigate('edit');
+  function goEditMeal(meal: mealStorageDTO){
+    navigation.navigate('edit',meal);
+  }
+
+  function goStatistics(){
+    const statistics = {
+          percentageValue: percentage,
+          sequence: 0,
+          total: totalAmount,
+          diet: onDietAmount,
+          outOfDiet: outOfDietAmount,
+    }
+    navigation.navigate('stats',{statistics});
   }
 
   useEffect(()=>{
     fetchData();
     getDietPercentage();
+    setStatistics();
   },[]);
   
   return (
     <>
       <HomeHeader />
-      <Percent number={percentage} />
+      <Percent number={percentage} redirect={goStatistics}/>
       <Meals>
         <NewContainer>
           <LabelNew>Refeições</LabelNew>
@@ -93,7 +117,7 @@ export function DietOverview() {
                 sections={DATA}
                 keyExtractor={(item,index) => item+index.toString()}
                 renderItem={({item}) => (
-                  <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={goEditMeal}/>
+                  <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={()=>goEditMeal(item)}/>
                 )}
                 renderSectionHeader={({section: {title}}) => (
                   <SectionTitle>{title}</SectionTitle>
