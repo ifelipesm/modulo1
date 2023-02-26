@@ -4,8 +4,6 @@ import theme from '@theme/index';
 import { StatusBar } from 'react-native';
 import { Loading } from '@components/Loading';
 import { Routes } from "@routes/index";
-import { AppRoutes } from '@routes/app.routes';
-import { NewMealSuccess } from '@screens/NewMealSuccess';
 
 
 export default function App() {

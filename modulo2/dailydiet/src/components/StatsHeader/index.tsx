@@ -12,7 +12,7 @@ export function StatsHeader({redirect, percentageValue=0}:Props) {
     <StatsHeaderContainer percentage={percentageValue} >
         <GoBack redirect={redirect} percentage={percentageValue}/>
         <TextBox>
-        <StatsHeaderTitle>{percentageValue}%</StatsHeaderTitle>
+        <StatsHeaderTitle>{percentageValue? percentageValue:'0'}%</StatsHeaderTitle>
         <StatsHeaderDescription>das refeições dentro da dieta</StatsHeaderDescription>
         </TextBox>
     </StatsHeaderContainer>

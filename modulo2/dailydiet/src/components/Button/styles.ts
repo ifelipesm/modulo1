@@ -1,8 +1,8 @@
 import { Text, TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components/native';
-import { Plus } from 'phosphor-react-native'
+import { PencilSimpleLine, Plus, Trash } from 'phosphor-react-native'
 
-  export type ButtonTypeStyleProps = 'PRIMARY' | 'SECONDARY';
+  export type ButtonTypeStyleProps = 'PRIMARY' | 'REMOVE' | 'EDIT';
 
   type Props = {
     type: ButtonTypeStyleProps;
@@ -39,6 +39,7 @@ import { Plus } from 'phosphor-react-native'
     left: 24px;
     right: 24px;
     bottom: 40px;
+    margin-bottom: 9px;
 
     ${({ theme,type })  =>  css`
     background: ${type === 'PRIMARY' ? theme.COLORS.GRAY_2 : theme.COLORS.WHITE};
@@ -49,6 +50,7 @@ import { Plus } from 'phosphor-react-native'
   export const Title = styled(BaseTitle)<Props>`
     width: 130px;
     height: 18px;
+    text-align: center;
 
     ${({ theme,type })  =>  css`
     color: ${type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_1};
@@ -79,3 +81,25 @@ import { Plus } from 'phosphor-react-native'
     height: 18px;
     right: 12px;
   `;
+
+export const IconEdit = styled(PencilSimpleLine).attrs(  ({ theme }) => ({
+  size: 18,
+  color: theme.COLORS.WHITE,
+}))`
+  width: 18px;
+  height: 18px;
+  right: 12px;
+`;
+
+export const IconRemove = styled(Trash).attrs(  ({ theme }) => ({
+  size: 18,
+  color: theme.COLORS.GRAY_1,
+}))`
+  width: 18px;
+  height: 18px;
+  right: 12px;
+`;
+
+  
+
+
