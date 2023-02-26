@@ -7,6 +7,7 @@ export declare global {
       overview: undefined; 
       stats: {
         statistics: {
+          percentageText: string,
           percentageValue: number,
           sequence:number,
           total: number,

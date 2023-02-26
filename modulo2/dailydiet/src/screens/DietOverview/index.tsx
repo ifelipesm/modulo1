@@ -14,6 +14,7 @@ import { mealsGetByDiet } from '@storage/Meal/mealsGetByDiet';
 export function DietOverview() {
   const [meals,setMeals] = useState<mealStorageDTO[]>([]);
   const [percentage,setPercentage] = useState<number>(0);
+  const [textPercentage,setTextPercentage] = useState<string>('0');
   const [sequenceAmount,setSequenceAmount] = useState<number>(0);
   const [totalAmount,setTotalAmount] = useState<number>(0);
   const [onDietAmount,setOnDietAmount] = useState<number>(0);
@@ -69,8 +70,9 @@ export function DietOverview() {
       try  {     
         const totalMeals = await mealsGetAll();
         const dietMeals = await mealsGetByDiet(true);
-        const percentageValue = Math.round((dietMeals.length/totalMeals.length)*100);
-        setPercentage(percentageValue)
+        const result = Math.round(((dietMeals.length/totalMeals.length)*100)).toFixed(2);
+        setTextPercentage(result.trim().replace('.',','));
+        setPercentage(+result)
     }
     catch(error){
       console.log(error);
@@ -88,6 +90,7 @@ export function DietOverview() {
 
   function goStatistics(){
     const statistics = {
+          percentageText: textPercentage,
           percentageValue: percentage,
           sequence: 0,
           total: totalAmount,
@@ -106,7 +109,7 @@ export function DietOverview() {
   return (
     <>
       <HomeHeader />
-      <Percent number={percentage} redirect={goStatistics}/>
+      <Percent number={percentage} text={textPercentage} redirect={goStatistics}/>
       <Meals>
         <NewContainer>
           <LabelNew>Refeições</LabelNew>

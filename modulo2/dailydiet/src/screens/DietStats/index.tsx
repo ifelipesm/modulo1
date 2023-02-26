@@ -7,6 +7,7 @@ import { DietCardBox, DietStatsContent, DietStatsData,Title  } from './styles';
 
 type routeParams = {
   statistics:{
+    percentageText: string,
     percentageValue: number,
     sequence:number,
     total: number,
@@ -27,7 +28,7 @@ export function DietStats() {
 
   return (
     <>
-    <StatsHeader redirect={goHome} percentageValue={statistics.percentageValue}/>
+    <StatsHeader redirect={goHome} percentageValue={statistics.percentageValue} percentageText={statistics.percentageText}/>
     <DietStatsContent>
       <Title>Estatísticas Gerais</Title>
       <DietStatsData>
