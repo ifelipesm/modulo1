@@ -14,7 +14,7 @@ export declare global {
           outOfDiet: number,
         }
       }
-      edit: mealStorageDTO;
+      edit: { meal: mealStorageDTO};
       success: {
         meal: {
           name: mealName,
@@ -24,15 +24,7 @@ export declare global {
           diet: mealDiet,
         }
         }
-      show: {
-        meal: {
-          name: string;
-          description: string;
-          day: string;
-          hour: string;
-          diet: boolean;
-        }
-      }
+      show: { meal: mealStorageDTO}
     }
   }
 }

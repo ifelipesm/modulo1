@@ -1,10 +1,51 @@
-import React from 'react';
-import { Container } from './styles';
+import { ButtonEdit } from '@components/Button/ButtonEdit';
+import { ButtonRemove } from '@components/Button/ButtonRemove';
+import { Header } from '@components/Header';
+import { InfoDateCard } from '@components/InfoDateCard';
+import {  InfoMealCard } from '@components/InfoMealCard';
+import { InfoTag } from '@components/InfoTag';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { mealRemove } from '@storage/Meal/mealRemove';
+import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
+import { ButtonBox, Content, Info } from './styles';
+
+type RouteParams = {
+  meal: mealStorageDTO;
+}
 
 export function ShowMeal() {
-  return (
-    <Container>
 
-    </Container>
+  const navigation = useNavigation();
+  const routes = useRoute();
+  const { meal } = routes.params as RouteParams
+
+   function goHome(){
+    navigation.navigate('overview');
+  }
+
+  function goEditMeal(){
+    navigation.navigate('edit',{meal});
+  }
+
+  async function removeMeal(meal: mealStorageDTO){
+    await mealRemove(meal);
+    goHome();
+  }
+
+  return (
+    <>
+    <Header title='Refeição' onDiet={meal.diet} redirectTo={goHome} />
+    <Content>
+      <Info>
+        <InfoMealCard title={meal.name} description={meal.description}/>
+        <InfoDateCard title='Data e Hora' day={meal.day} hour={meal.hour}/>
+        <InfoTag onDiet={meal.diet}/>
+      </Info>
+      <ButtonBox>
+      <ButtonEdit text='Editar Refeição' type='PRIMARY' value={goEditMeal}/>
+      <ButtonRemove text='Remover Refeição' type='REMOVE' value={()=>removeMeal(meal)}/>
+      </ButtonBox>
+    </Content>
+    </>
   );
 }

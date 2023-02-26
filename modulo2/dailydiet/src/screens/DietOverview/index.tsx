@@ -82,8 +82,8 @@ export function DietOverview() {
     navigation.navigate('new');
   }
 
-  function goEditMeal(meal: mealStorageDTO){
-    navigation.navigate('edit',meal);
+  function goShowMeal(meal: mealStorageDTO){
+    navigation.navigate('show',{meal});
   }
 
   function goStatistics(){
@@ -117,11 +117,14 @@ export function DietOverview() {
                 sections={DATA}
                 keyExtractor={(item,index) => item+index.toString()}
                 renderItem={({item}) => (
-                  <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={()=>goEditMeal(item)}/>
+                  <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={()=>goShowMeal(item)}/>
                 )}
                 renderSectionHeader={({section: {title}}) => (
                   <SectionTitle>{title}</SectionTitle>
                 )}
+                ListEmptyComponent={
+                  <></>
+                }
               />
             }
       </Meals>

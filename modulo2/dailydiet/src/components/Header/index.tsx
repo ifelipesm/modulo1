@@ -5,12 +5,13 @@ import { Background, Title } from './styles';
 
 type Props = TouchableOpacityProps & {
   title: string;
- redirectTo: () => void;
+  onDiet?: boolean;
+  redirectTo: () => void;
 }
 
-export function Header({title,redirectTo}:Props) {
+export function Header({title,onDiet,redirectTo}:Props) {
   return (
-    <Background>
+    <Background dietType={onDiet}>
       <GoBack redirect={redirectTo}/>
       <Title>{title}</Title>
     </Background>

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
 
 import { mealCreate } from '@storage/Meal/mealCreate';
@@ -17,6 +16,7 @@ import { SelectRed } from '@components/Select/SelectRed';
 
 import dayjs from 'dayjs';
 import { TextInput } from 'react-native';
+import { ButtonCreate } from '@components/Button/ButtonCreate';
 
 export function NewMeal() {
   const [mealName,setMealName] = useState<string>('');
@@ -131,7 +131,7 @@ export function NewMeal() {
           
         </Form>
         <ButtonView>
-          <Button  value={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
+          <ButtonCreate value={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
         </ButtonView>
       </Content>
     </>
