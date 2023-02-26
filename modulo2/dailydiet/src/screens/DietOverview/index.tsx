@@ -2,7 +2,7 @@ import { ButtonNew } from '@components/Button/ButtonNew';
 import { HomeHeader } from '@components/HomeHeader';
 import { MealCard } from '@components/MealCard';
 import { Percent } from '@components/Percent';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { mealsGetAll } from '@storage/Meal/mealsGetAll';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
 import { useEffect, useState } from 'react';
@@ -97,11 +97,11 @@ export function DietOverview() {
     navigation.navigate('stats',{statistics});
   }
 
-  useEffect(()=>{
+  useFocusEffect(()=>{
     fetchData();
     getDietPercentage();
     setStatistics();
-  },[]);
+  });
   
   return (
     <>

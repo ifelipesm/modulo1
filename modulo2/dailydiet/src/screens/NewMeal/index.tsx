@@ -15,8 +15,9 @@ import { SelectGreen } from '@components/Select/SelectGreen';
 import { SelectRed } from '@components/Select/SelectRed';
 
 import dayjs from 'dayjs';
-import { TextInput } from 'react-native';
+import { Alert, TextInput } from 'react-native';
 import { ButtonCreate } from '@components/Button/ButtonCreate';
+import { AppError } from '@utils/AppError';
 
 export function NewMeal() {
   const [mealName,setMealName] = useState<string>('');
@@ -53,15 +54,24 @@ export function NewMeal() {
   }
   
   async function handleAddMeal(){
-    const meal = {
-      name: mealName,
-      description: mealDescription,
-      day: mealDay,
-      hour: mealHour,
-      diet: mealDiet,
-    };
-    await mealCreate(meal);
-    navigation.navigate('success',{meal});
+    try{    
+
+      const meal = {
+        name: mealName,
+        description: mealDescription,
+        day: mealDay,
+        hour: mealHour,
+        diet: mealDiet,
+      };
+      if(checkEmptyInput()  !== true){
+        await mealCreate(meal);
+        navigation.navigate('success',{meal});
+      }
+
+    }
+    catch(error){
+      Alert.alert('Erro no cadastro','Campos não preenchidos ou refeição já cadastrada.')
+    }
   }
 
   function SetHealthyMeal(){
@@ -73,6 +83,13 @@ export function NewMeal() {
     setIsRedSelected(true);
     setIsGreenSelected(false);
     setMealDiet(false);
+  }
+
+  function checkEmptyInput(){
+    if((mealName && mealDescription && mealDay && mealHour === '') && (isGreenSelected || isRedSelected !== true)){
+      return true;
+    }
+    return false;
   }
 
   function goHome(){
@@ -131,7 +148,7 @@ export function NewMeal() {
           
         </Form>
         <ButtonView>
-          <ButtonCreate value={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
+          <ButtonCreate action={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' verify={checkEmptyInput()} />
         </ButtonView>
       </Content>
     </>

@@ -11,7 +11,7 @@ export const StatsHeaderContainer = styled.View<StatsHeaderStyleProps>`
   right: 0px;
   top: 0px;
   ${({ theme,percentage })  =>  css`
-      background: ${percentage >= 50 ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
+      background: ${percentage > 50 ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
     `};
   
 `;

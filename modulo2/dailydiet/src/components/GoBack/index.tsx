@@ -12,7 +12,7 @@ export function GoBack({redirect,percentage}: Props) {
   useTheme();
   return (
   <TouchableArea onPress={redirect}>
-    <Icon color={percentage? percentage >= 50 ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK : theme.COLORS.GRAY_1} />
+    <Icon color={percentage? percentage > 50 ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK : theme.COLORS.GRAY_1} />
   </TouchableArea>
   );
 }

@@ -15,12 +15,19 @@ export async function mealRemove(removedMeal: mealStorageDTO) {
     const dayMeals = await mealsGetByDay(day);
     const filterDayHourMeals = dayMeals.filter(m => m.hour !== hour);
     const filterStoredMeals = storedMeals.filter(meal => meal.day !== day);
-    const updatedMeals = [...filterStoredMeals,filterDayHourMeals];
 
-    const updatedStorageData = JSON.stringify([...updatedMeals]);
+    if(filterDayHourMeals.length === 0){
+      const  updatedMeals = [...filterStoredMeals];
+      
+      const updatedStorageData = JSON.stringify([...updatedMeals]);
+      await AsyncStorage.setItem(`${MEAL_COLLECTION}`,updatedStorageData);
+    } 
+    else{
+      const  updatedMeals = [...filterStoredMeals,filterDayHourMeals];
 
-    await AsyncStorage.setItem(`${MEAL_COLLECTION}`,updatedStorageData);
-    
+      const updatedStorageData = JSON.stringify([...updatedMeals]);
+      await AsyncStorage.setItem(`${MEAL_COLLECTION}`,updatedStorageData);
+    }
   }
   catch(error){
     throw error;

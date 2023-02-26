@@ -4,12 +4,13 @@ import { ButtonTypeStyleProps, Container, IconEdit, Title } from './styles';
 type Props = TouchableOpacityProps & {
   text: string;
   type?: ButtonTypeStyleProps;
-  value: () => void;
+  action: () => void;
+  verify?: boolean;
 }
 
-export function ButtonCreate({value,text,type='PRIMARY',...rest}:Props) {
+export function ButtonCreate({action,verify,text,type='PRIMARY',...rest}:Props) {
   return (
-    <Container onPress={value} type={type} {...rest}>
+    <Container onPress={action} type={type} disabled={verify} {...rest}>
       <Title type={type}>{text}</Title>
     </Container>
   );
