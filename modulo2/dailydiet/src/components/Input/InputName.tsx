@@ -11,7 +11,7 @@ export function InputName({text,inputRef, ...rest}:Props) {
     <NameView>
       <NameLabel>{text}</NameLabel>
       <NameBox >
-        <NameText {...rest}/>
+        <NameText ref={inputRef} {...rest}/>
       </NameBox>
     </NameView>
   );

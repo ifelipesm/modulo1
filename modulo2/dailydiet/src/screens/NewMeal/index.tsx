@@ -19,6 +19,8 @@ import { Alert, TextInput } from 'react-native';
 import { ButtonCreate } from '@components/Button/ButtonCreate';
 import { AppError } from '@utils/AppError';
 
+
+
 export function NewMeal() {
   const [mealName,setMealName] = useState<string>('');
   const [mealDescription,setMealDescription] = useState<string>('');
@@ -52,6 +54,16 @@ export function NewMeal() {
     setMealHour(mealHour);
     newMealHourInputRef.current?.blur();
   }
+
+  function clearFields(){
+    newMealNameInputRef.current?.clear();
+    newMealDescriptionInputRef.current?.clear();
+    newMealDayInputRef.current?.clear();
+    newMealHourInputRef.current?.clear();
+    setIsGreenSelected(false);
+    setIsRedSelected(false);
+    setMealDiet(false);
+  }
   
   async function handleAddMeal(){
     try{    
@@ -63,15 +75,16 @@ export function NewMeal() {
         hour: mealHour,
         diet: mealDiet,
       };
-      if(checkEmptyInput()  !== true){
-        await mealCreate(meal);
-        navigation.navigate('success',{meal});
-      }
+      if(!checkEmptyInput()){
+          await mealCreate(meal);
+          clearFields();
+          navigation.navigate('success',{meal});
+        }
       else
-      Alert.alert('Erro no cadastro','Preencha todos os campos');
+      Alert.alert('Erro no cadastro - campos','Preencha todos os campos');
     }
     catch(error){
-      Alert.alert('Erro no cadastro','Refeição já cadastrada.')
+      Alert.alert('Erro no cadastro - dados','Refeição já cadastrada ou falha no cadastro.')
     }
   }
 
@@ -86,8 +99,20 @@ export function NewMeal() {
     setMealDiet(false);
   }
 
+ /* function checkDateInputs(){
+    const mealDayFormated = mealDay.concat(" ");
+    const mealDate = mealDayFormated.concat(mealHour);
+ 
+      const isValid = dayjs(mealDate,'DD/MM/YYYY HH:mm',true).isValid;
+      //const isValid = moment(mealDay)
+      return isValid;
+  }
+*/
+
   function checkEmptyInput(){
-    if((mealName || mealDescription || mealDay || mealHour === '') || (isGreenSelected && isRedSelected === false)){
+    if(mealName === "" || mealDescription === "" || mealDay === "" || mealHour === "" 
+    || isGreenSelected === false && isRedSelected === false)
+    {
       return true;
     }
     else{
@@ -98,6 +123,10 @@ export function NewMeal() {
   function goHome(){
     navigation.navigate('overview');
   }
+
+  useFocusEffect(() => {
+    checkEmptyInput();
+  })
 
   return (
     <>
@@ -127,12 +156,14 @@ export function NewMeal() {
           <DayHourRow>
             <InputDay
               text='Data'
-              placeholder="DD/MM/YYYY" 
+              placeholder="DD/MM/YYYY"
               inputRef={newMealDayInputRef} 
               onChangeText={setMealDay}
               value={mealDay}
+              blurOnSubmit
               onSubmitEditing={setDayInputRef} 
               returnKeyType="done"  
+              keyboardType='numeric'
             />        
             <InputHour
               text='Hora'
@@ -141,7 +172,8 @@ export function NewMeal() {
               onChangeText={setMealHour}
               value={mealHour}
               onSubmitEditing={setHourInputRef} 
-              returnKeyType="done"  
+              returnKeyType="done"
+              keyboardType='numeric'
             />     
           </DayHourRow>
 

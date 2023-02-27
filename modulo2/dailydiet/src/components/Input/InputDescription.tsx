@@ -11,7 +11,7 @@ export function InputDescription({text,inputRef, ...rest}:Props) {
     <DescriptionView>
       <DescriptionLabel >{text}</DescriptionLabel>
         <DescriptionBox>
-          <DescriptionText {...rest}/>
+          <DescriptionText ref={inputRef} {...rest}/>
         </DescriptionBox>
     </DescriptionView>
   );

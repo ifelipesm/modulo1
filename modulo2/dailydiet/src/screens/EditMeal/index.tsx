@@ -72,12 +72,13 @@ export function EditMeal() {
         hour: mealHour,
         diet: mealDiet,
       };
-      if(checkEmptyInput()  !== true){
+      if(!checkEmptyInput()){
         await mealRemove(meal);
         await mealCreate(updatedMeal);
         navigation.navigate('overview');
       }
-
+      else
+      Alert.alert('Erro no cadastro - campos','Preencha todos os campos');
     }
     catch(error){
       Alert.alert('Erro no cadastro','Campos não preenchidos ou refeição já cadastrada.')
@@ -105,10 +106,14 @@ export function EditMeal() {
   }
 
   function checkEmptyInput(){
-    if((mealName && mealDescription && mealDay && mealHour === '') && (isGreenSelected || isRedSelected !== true)){
+    if(mealName === "" || mealDescription === "" || mealDay === "" || mealHour === "" 
+    || isGreenSelected === false && isRedSelected === false)
+    {
       return true;
     }
+    else{
     return false;
+    }
   }
 
   function goHome(){
@@ -172,7 +177,7 @@ export function EditMeal() {
           
         </Form>
         <ButtonView>
-          <ButtonCreate action={handleUpdateMeal} type='PRIMARY' text='Atualizar Refeição' verify={checkEmptyInput()} />
+          <ButtonCreate action={handleUpdateMeal} type='PRIMARY' text='Atualizar Refeição' />
         </ButtonView>
       </Content>
     </>
