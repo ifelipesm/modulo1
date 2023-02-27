@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { mealCreate } from '@storage/Meal/mealCreate';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
@@ -67,10 +67,11 @@ export function NewMeal() {
         await mealCreate(meal);
         navigation.navigate('success',{meal});
       }
-
+      else
+      Alert.alert('Erro no cadastro','Preencha todos os campos');
     }
     catch(error){
-      Alert.alert('Erro no cadastro','Campos não preenchidos ou refeição já cadastrada.')
+      Alert.alert('Erro no cadastro','Refeição já cadastrada.')
     }
   }
 
@@ -86,10 +87,12 @@ export function NewMeal() {
   }
 
   function checkEmptyInput(){
-    if((mealName && mealDescription && mealDay && mealHour === '') && (isGreenSelected || isRedSelected !== true)){
+    if((mealName || mealDescription || mealDay || mealHour === '') || (isGreenSelected && isRedSelected === false)){
       return true;
     }
+    else{
     return false;
+    }
   }
 
   function goHome(){
@@ -102,8 +105,9 @@ export function NewMeal() {
       <Content>
         <Form>
           <InputName
-          text='Name'
-          inputRef={newMealNameInputRef} 
+          text='Nome'
+          placeholder="Ex: Almoço" 
+          inputRef={newMealNameInputRef}
           onChangeText={setMealName}
           value={mealName}
           onSubmitEditing={setNameInputRef} // submit on keyboard
@@ -112,6 +116,7 @@ export function NewMeal() {
 
           <InputDescription
             text='Descrição'
+            placeholder="Descreva sua refeição" 
             inputRef={newMealDescriptionInputRef} 
             onChangeText={setMealDescription}
             value={mealDescription}
@@ -122,6 +127,7 @@ export function NewMeal() {
           <DayHourRow>
             <InputDay
               text='Data'
+              placeholder="DD/MM/YYYY" 
               inputRef={newMealDayInputRef} 
               onChangeText={setMealDay}
               value={mealDay}
@@ -130,6 +136,7 @@ export function NewMeal() {
             />        
             <InputHour
               text='Hora'
+              placeholder="00:00" 
               inputRef={newMealHourInputRef} 
               onChangeText={setMealHour}
               value={mealHour}
@@ -148,7 +155,7 @@ export function NewMeal() {
           
         </Form>
         <ButtonView>
-          <ButtonCreate action={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' verify={checkEmptyInput()} />
+          <ButtonCreate action={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
         </ButtonView>
       </Content>
     </>
