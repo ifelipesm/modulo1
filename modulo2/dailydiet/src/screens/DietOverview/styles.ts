@@ -1,4 +1,8 @@
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styled, { css } from 'styled-components/native';
+
+  export const Container = styled(SafeAreaView)`
+`;
 
   export const Meals = styled.View`
 
@@ -8,7 +12,7 @@ import styled, { css } from 'styled-components/native';
     padding: 0px 0px 88px;
 
     position: absolute;
-    height: 733px;
+    max-height: 733px;
     left: 24px;
     right: 24px;
     top: 278px;
@@ -46,7 +50,8 @@ import styled, { css } from 'styled-components/native';
 
     min-width: 74px;
     height: 23px;
-    margin-top: 32px;
+
+    margin-top: 8px;
     margin-bottom: 8px;
     
     line-height: 23px;
@@ -58,4 +63,8 @@ import styled, { css } from 'styled-components/native';
 
     display: flex;
     align-items: center;
+  `;
+
+  export const ListFooter  = styled.View`
+  margin-bottom: 80%;
   `;

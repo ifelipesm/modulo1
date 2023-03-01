@@ -5,6 +5,7 @@ import { AppError } from "@utils/AppError";
 import { mealsGetByDay } from "./mealsGetByDay";
 import { mealsGetAll } from "./mealsGetAll";
 import { mealStorageDTO } from "./mealStorageDTO";
+import { orderMealsDesc } from "@utils/orderMealsDesc";
 
 
 export async function mealCreate(newMeal: mealStorageDTO) {
@@ -21,9 +22,14 @@ export async function mealCreate(newMeal: mealStorageDTO) {
       throw new AppError("Já existe uma refeição cadastrada neste dia e horário.");
     }
 
-    const newStorageData = JSON.stringify([...storedMeals,newMeal]);
+    const meals = [...storedMeals,newMeal];
 
+    const orderedMeals = orderMealsDesc(meals);
+
+    const newStorageData = JSON.stringify([...meals]);
+  
     await AsyncStorage.setItem(`${MEAL_COLLECTION}`,newStorageData);
+
     
   }
   catch(error){

@@ -18,15 +18,21 @@ import dayjs from 'dayjs';
 import { Alert, TextInput } from 'react-native';
 import { ButtonCreate } from '@components/Button/ButtonCreate';
 import { AppError } from '@utils/AppError';
+import { storageClear } from '@storage/storageClear';
 
 
 
 export function NewMeal() {
+
+  const todayDay = dayjs(new Date).format('DD/MM/YYYY').toString();
+  const todayHour = dayjs(new Date).format('HH:mm').toString();
+
   const [mealName,setMealName] = useState<string>('');
   const [mealDescription,setMealDescription] = useState<string>('');
-  const [mealDay,setMealDay] = useState<string>('');
-  const [mealHour,setMealHour] = useState<string>('');
+  const [mealDay,setMealDay] = useState<string>(todayDay);
+  const [mealHour,setMealHour] = useState<string>(todayHour);
   const [mealDiet,setMealDiet] = useState<boolean>(false);
+  const [isDisabled,setIsDisabled] = useState<boolean>(false);
 
   const [isGreenSelected,setIsGreenSelected] =useState<boolean>(false);
   const [isRedSelected,setIsRedSelected] =useState<boolean>(false);
@@ -75,11 +81,12 @@ export function NewMeal() {
         hour: mealHour,
         diet: mealDiet,
       };
-      if(!checkEmptyInput()){
+      if(!checkEmptyInput())
+      {   
           await mealCreate(meal);
-          clearFields();
-          navigation.navigate('success',{meal});
-        }
+          //clearFields();
+          navigation.navigate('success',{mealDiet});
+      }
       else
       Alert.alert('Erro no cadastro - campos','Preencha todos os campos');
     }
@@ -124,6 +131,7 @@ export function NewMeal() {
     navigation.navigate('overview');
   }
 
+
   useFocusEffect(() => {
     checkEmptyInput();
   })
@@ -163,7 +171,7 @@ export function NewMeal() {
               blurOnSubmit
               onSubmitEditing={setDayInputRef} 
               returnKeyType="done"  
-              keyboardType='numeric'
+              keyboardType='numbers-and-punctuation'
             />        
             <InputHour
               text='Hora'
@@ -173,7 +181,7 @@ export function NewMeal() {
               value={mealHour}
               onSubmitEditing={setHourInputRef} 
               returnKeyType="done"
-              keyboardType='numeric'
+              keyboardType='numbers-and-punctuation'
             />     
           </DayHourRow>
 
@@ -187,7 +195,7 @@ export function NewMeal() {
           
         </Form>
         <ButtonView>
-          <ButtonCreate action={handleAddMeal} type='PRIMARY' text='Cadastrar Refeição' />
+          <ButtonCreate action={handleAddMeal} disabled={isDisabled} type='PRIMARY' text='Cadastrar Refeição' />
         </ButtonView>
       </Content>
     </>
