@@ -1,14 +1,14 @@
+import { useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Alert, SectionList } from 'react-native';
+
+import { Container, LabelNew, ListFooter, Meals, NewContainer, SectionTitle } from './styles';
 import { ButtonNew } from '@components/Button/ButtonNew';
 import { HomeHeader } from '@components/HomeHeader';
 import { MealCard } from '@components/MealCard';
 import { Percent } from '@components/Percent';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { mealsGetAll } from '@storage/Meal/mealsGetAll';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
-import { useEffect, useState } from 'react';
-import { Alert, SectionList } from 'react-native';
-import { Container, LabelNew, ListFooter, Meals, NewContainer, SectionTitle } from './styles';
-import { storageClear } from '@storage/storageClear';
 import { mealsGetByDiet } from '@storage/Meal/mealsGetByDiet';
 import {transformListInSectionList} from '@utils/transformListInSectionList';
 import { getDietSequence } from '@utils/getDietSequence';
@@ -28,10 +28,9 @@ export function DietOverview() {
 
   async function fetchData(){
     try{
-      //storageClear();
+      //storageClear(); -> testing only
       const mealsData = await mealsGetAll();
       setMeals(mealsData);
-
     }
     catch(error){
       console.log(error);
@@ -49,9 +48,7 @@ export function DietOverview() {
     setOnDietAmount(dietMeals.length);
     setOutOfDietAmount(outOfDietMeals.length);
     setTotalAmount(totalMeals.length);
-    
     setSequenceAmount(sequenceValue);
-    getDietPercentage();
     }
     catch(error){
       Alert.alert('Erro - Estatísticas','Não foi possível exibir as estatísticas.');
@@ -93,6 +90,7 @@ export function DietOverview() {
   useFocusEffect(()=>{
     fetchData();
     setStatistics();
+    getDietPercentage();
   });
   
   return (

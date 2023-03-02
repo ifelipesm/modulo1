@@ -19,6 +19,7 @@ import { Alert, TextInput } from 'react-native';
 import { ButtonCreate } from '@components/Button/ButtonCreate';
 import { AppError } from '@utils/AppError';
 import { storageClear } from '@storage/storageClear';
+import { validateDates } from '@utils/validateDates';
 
 
 
@@ -81,17 +82,25 @@ export function NewMeal() {
         hour: mealHour,
         diet: mealDiet,
       };
-      if(!checkEmptyInput())
-      {   
+      if(!checkEmptyInputs()){    
+        if(validateDates(meal.day,meal.hour) === true){ 
           await mealCreate(meal);
-          //clearFields();
+          clearFields();
           navigation.navigate('success',{mealDiet});
+        }
+        else{
+          Alert.alert("Falha no cadastro","Insira um formato de data/hora válido. Ex: DD/MM/YYYY e HH:mm");
+          throw new AppError("Formato de datas inválido.");
+        }
       }
-      else
-      Alert.alert('Erro no cadastro - campos','Preencha todos os campos');
+      else{
+      Alert.alert("Falha no Cadastro","Preencha todos os campos");
+      throw new AppError("Os campos não foram preenchidos.");
+      }
     }
     catch(error){
-      Alert.alert('Erro no cadastro - dados','Refeição já cadastrada ou falha no cadastro.')
+      Alert.alert("Falha no Cadastro","Não foi possível criar a refeição.");
+      throw new AppError("Não foi possível criar a refeição.")
     }
   }
 
@@ -106,17 +115,9 @@ export function NewMeal() {
     setMealDiet(false);
   }
 
- /* function checkDateInputs(){
-    const mealDayFormated = mealDay.concat(" ");
-    const mealDate = mealDayFormated.concat(mealHour);
- 
-      const isValid = dayjs(mealDate,'DD/MM/YYYY HH:mm',true).isValid;
-      //const isValid = moment(mealDay)
-      return isValid;
-  }
-*/
 
-  function checkEmptyInput(){
+
+  function checkEmptyInputs(){
     if(mealName === "" || mealDescription === "" || mealDay === "" || mealHour === "" 
     || isGreenSelected === false && isRedSelected === false)
     {
@@ -131,9 +132,8 @@ export function NewMeal() {
     navigation.navigate('overview');
   }
 
-
   useFocusEffect(() => {
-    checkEmptyInput();
+    checkEmptyInputs();
   })
 
   return (
