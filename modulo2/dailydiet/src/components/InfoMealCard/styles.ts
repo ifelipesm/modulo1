@@ -8,11 +8,13 @@ export const Container = styled.View`
 
   width: 327px;
   height: 76px;
+  margin-bottom: 24px;
 `;
 
 export const Title = styled.Text`
   width: 327px;
-  height: 26px;
+  min-height: 26px;
+  padding-bottom: 8px;
   
   ${({ theme })  =>  css`
       font-size: ${theme.FONT_SIZE.MD_3}px;
@@ -25,7 +27,7 @@ export const Title = styled.Text`
 
 export const Description = styled.Text`
   width: 327px;
-  height: 42px;
+  min-height: 42px;
 
   ${({ theme })  =>  css`
       font-size: ${theme.FONT_SIZE.MD_1}px;

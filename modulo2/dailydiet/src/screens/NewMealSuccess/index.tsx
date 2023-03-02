@@ -3,13 +3,7 @@ import { SuccessHeader } from '@components/SuccessHeader';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 type routeParams = {
-  meal: {
-    name: string,
-    description: string,
-    day: string,
-    hour: string,
-    diet: boolean,
-  }
+   mealDiet: boolean,
 };
 
 
@@ -18,7 +12,7 @@ export function NewMealSuccess() {
   
   const navigation = useNavigation();
   const route = useRoute();
-  const { meal } = route.params as routeParams;
+  const { mealDiet } = route.params as routeParams;
   
   function goToHome(){
   navigation.navigate('overview');
@@ -26,7 +20,7 @@ export function NewMealSuccess() {
   
   return (
     <>
-    <SuccessHeader diet={meal.diet} />
+    <SuccessHeader diet={mealDiet} />
     <SuccessButton onRedirect={goToHome} />    
     </>
   );

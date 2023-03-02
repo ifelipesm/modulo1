@@ -11,7 +11,7 @@ export function InputHour({text,inputRef, ...rest}:Props) {
     <DateView>
       <HourLabel>{text}</HourLabel>
       <HourBox>
-        <HourText {...rest} />
+        <HourText ref={inputRef} {...rest} />
       </HourBox>
    </DateView>
   );

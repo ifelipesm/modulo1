@@ -5,6 +5,9 @@ import { AppError } from "@utils/AppError";
 import { mealsGetByDay } from "./mealsGetByDay";
 import { mealsGetAll } from "./mealsGetAll";
 import { mealStorageDTO } from "./mealStorageDTO";
+import { orderMealsDesc } from "@utils/orderMealsDesc";
+import { validateDates } from "@utils/validateDates";
+import { Alert } from "react-native";
 
 
 export async function mealCreate(newMeal: mealStorageDTO) {
@@ -18,13 +21,17 @@ export async function mealCreate(newMeal: mealStorageDTO) {
     const mealAlreadyRegistered = storedMealsByDay.filter( meal => meal.hour === hour);
 
     if(mealAlreadyRegistered.length > 0){
+      Alert.alert("Falha no cadastro","Já existe uma refeição cadastrada neste dia e horário.")
       throw new AppError("Já existe uma refeição cadastrada neste dia e horário.");
     }
 
-    const newStorageData = JSON.stringify([...storedMeals,newMeal]);
-
-    await AsyncStorage.setItem(`${MEAL_COLLECTION}`,newStorageData);
+      const meals = [...storedMeals,newMeal];
+  
+      orderMealsDesc(meals);
+  
+      const newStorageData = JSON.stringify([...meals]);
     
+      await AsyncStorage.setItem(`${MEAL_COLLECTION}`,newStorageData);
   }
   catch(error){
     throw error;

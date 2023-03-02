@@ -5,12 +5,12 @@ type Props = TouchableOpacityProps & {
   text: string;
   type?: ButtonTypeStyleProps;
   action: () => void;
-  verify?: boolean;
+  
 }
 
-export function ButtonCreate({action,verify,text,type='PRIMARY',...rest}:Props) {
+export function ButtonCreate({action,text,type='PRIMARY',...rest}:Props) {
   return (
-    <Container onPress={action} type={type} disabled={verify} {...rest}>
+    <Container onPress={action} type={type}  {...rest}>
       <Title type={type}>{text}</Title>
     </Container>
   );

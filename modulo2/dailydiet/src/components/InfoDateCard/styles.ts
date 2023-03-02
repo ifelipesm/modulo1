@@ -9,11 +9,13 @@ export const Container = styled.View`
 
   width: 327px;
   height: 47px;
+  margin-bottom: 24px;
 `;
 
 export const Title = styled.Text`
   width: 327px;
-  height: 18px;
+  min-height: 18px;
+  margin-bottom: 8px;
   
   ${({ theme })  =>  css`
       font-size: ${theme.FONT_SIZE.SM_2}px;

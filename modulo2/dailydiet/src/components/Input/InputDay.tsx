@@ -12,7 +12,7 @@ export function InputDay({text,inputRef, ...rest}:Props) {
     <DateView>
       <DayLabel>{text}</DayLabel>
       <DayBox>
-        <DayText {...rest} />
+        <DayText  ref={inputRef} {...rest} />
       </DayBox>
     </DateView>
   );

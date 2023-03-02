@@ -7,6 +7,7 @@ import { InfoTag } from '@components/InfoTag';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { mealRemove } from '@storage/Meal/mealRemove';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
+import { Alert } from 'react-native';
 import { ButtonBox, Content, Info } from './styles';
 
 type RouteParams = {
@@ -32,6 +33,13 @@ export function ShowMeal() {
     goHome();
   }
 
+  async function handleRemoveMeal(){
+    Alert.alert('Remover','Deseja realmente excluir o registro da refeição?',[
+      {text:'Cancelar',style:'cancel'},
+      {text:'Sim, excluir',onPress: ()  =>  removeMeal(meal)},
+    ])
+  }
+
   return (
     <>
     <Header title='Refeição' onDiet={meal.diet} redirectTo={goHome} />
@@ -43,7 +51,7 @@ export function ShowMeal() {
       </Info>
       <ButtonBox>
       <ButtonEdit text='Editar Refeição' type='PRIMARY' value={goEditMeal}/>
-      <ButtonRemove text='Remover Refeição' type='REMOVE' value={()=>removeMeal(meal)}/>
+      <ButtonRemove text='Remover Refeição' type='REMOVE' value={handleRemoveMeal}/>
       </ButtonBox>
     </Content>
     </>

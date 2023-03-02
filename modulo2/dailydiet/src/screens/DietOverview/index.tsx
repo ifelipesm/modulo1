@@ -1,17 +1,20 @@
+import { useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Alert, SectionList } from 'react-native';
+
+import { Container, LabelNew, ListFooter, Meals, NewContainer, SectionTitle } from './styles';
 import { ButtonNew } from '@components/Button/ButtonNew';
 import { HomeHeader } from '@components/HomeHeader';
 import { MealCard } from '@components/MealCard';
 import { Percent } from '@components/Percent';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { mealsGetAll } from '@storage/Meal/mealsGetAll';
 import { mealStorageDTO } from '@storage/Meal/mealStorageDTO';
-import { useEffect, useState } from 'react';
-import { Alert, SectionList } from 'react-native';
-import { LabelNew, Meals, NewContainer, SectionTitle } from './styles';
-import { storageClear } from '@storage/storageClear';
 import { mealsGetByDiet } from '@storage/Meal/mealsGetByDiet';
+import {transformListInSectionList} from '@utils/transformListInSectionList';
+import { getDietSequence } from '@utils/getDietSequence';
 
 export function DietOverview() {
+
   const [meals,setMeals] = useState<mealStorageDTO[]>([]);
   const [percentage,setPercentage] = useState<number>(0);
   const [textPercentage,setTextPercentage] = useState<string>('0');
@@ -21,33 +24,11 @@ export function DietOverview() {
   const [outOfDietAmount,setOutOfDietAmount] = useState<number>(0);
   
   const navigation = useNavigation();
-  
-  
   const DATA = transformListInSectionList(meals);
-
-   function transformListInSectionList(meals: mealStorageDTO[]) {
-    const arrayCompared = meals.reduce((acc: any, meal) => {
-      if (!acc[meal.day]) {
-        acc[meal.day] = [];
-      }
-      acc[meal.day].push(meal);
-      return acc;
-    }, {});
-
-    const sectionListData = Object.keys(arrayCompared).map((item) => {
-      const data = arrayCompared[item];
-      return {
-        title: item,
-        data,
-      };
-    });
-
-    return sectionListData;
-  }
 
   async function fetchData(){
     try{
-      //storageClear();
+      //storageClear(); -> testing only
       const mealsData = await mealsGetAll();
       setMeals(mealsData);
     }
@@ -58,19 +39,25 @@ export function DietOverview() {
   }
 
   async function setStatistics(){
+    try{
     const totalMeals = await mealsGetAll();
     const dietMeals = await mealsGetByDiet(true);
     const outOfDietMeals = await mealsGetByDiet(false);
+    const sequenceValue = await getDietSequence(meals);
+    
     setOnDietAmount(dietMeals.length);
     setOutOfDietAmount(outOfDietMeals.length);
     setTotalAmount(totalMeals.length);
+    setSequenceAmount(sequenceValue);
+    }
+    catch(error){
+      Alert.alert('Erro - Estatísticas','Não foi possível exibir as estatísticas.');
+    }
   }
 
   async function getDietPercentage(){
       try  {     
-        const totalMeals = await mealsGetAll();
-        const dietMeals = await mealsGetByDiet(true);
-        const result = Math.round(((dietMeals.length/totalMeals.length)*100)).toFixed(2);
+        const result = Math.round(((onDietAmount/totalAmount)*100)).toFixed(2);
         setTextPercentage(result.trim().replace('.',','));
         setPercentage(+result)
     }
@@ -92,7 +79,7 @@ export function DietOverview() {
     const statistics = {
           percentageText: textPercentage,
           percentageValue: percentage,
-          sequence: 0,
+          sequence: sequenceAmount,
           total: totalAmount,
           diet: onDietAmount,
           outOfDiet: outOfDietAmount,
@@ -102,8 +89,8 @@ export function DietOverview() {
 
   useFocusEffect(()=>{
     fetchData();
-    getDietPercentage();
     setStatistics();
+    getDietPercentage();
   });
   
   return (
@@ -115,21 +102,28 @@ export function DietOverview() {
           <LabelNew>Refeições</LabelNew>
           <ButtonNew title='Nova Refeição' redirect={goNewMeal} />
         </NewContainer>
-            {
-              <SectionList
-                sections={DATA}
-                keyExtractor={(item,index) => item+index.toString()}
-                renderItem={({item}) => (
-                  <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={()=>goShowMeal(item)}/>
-                )}
-                renderSectionHeader={({section: {title}}) => (
-                  <SectionTitle>{title}</SectionTitle>
-                )}
-                ListEmptyComponent={
-                  <></>
-                }
-              />
-            }
+        <Container>
+          {
+            <SectionList
+              stickyHeaderHiddenOnScroll={true}
+              stickySectionHeadersEnabled={false}
+              sections={DATA}
+              keyExtractor={(item,index) => item+index.toString()}
+              ListFooterComponent={
+              <ListFooter></ListFooter>
+              }
+              renderSectionHeader={({section: {title}}) => (
+                <SectionTitle>{title}</SectionTitle>
+              )}
+              renderItem={({item}) => (
+                <MealCard hour={item.hour} meal={item.name} diet={item.diet} onRedirect={()=>goShowMeal(item)}/>
+              )}
+              ListEmptyComponent={
+                <></>
+              }
+            />
+          }
+        </Container>
       </Meals>
     </>
   );

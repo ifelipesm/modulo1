@@ -12,7 +12,7 @@ export const StatsCardContainer = styled.View`
   height: 89px;
 
   ${({ theme })  =>  css`
-      background: ${theme.COLORS.GRAY_6};
+      background: ${theme.COLORS.GRAY_5};
     `};
     border-radius: 8px;
 `;

@@ -13,7 +13,7 @@ export function Percent({number,text,redirect}:Props) {
   return (
     <Container percentage={number} onPress={redirect}>
       <IconArrow color={number > 50 ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK}/>
-      <Title>{text}%</Title>
+      <Title>{text !== 'NaN' ? text : '-'}%</Title>
       <Subtitle>das refeições dentro da dieta</Subtitle>
     </Container>
   );
