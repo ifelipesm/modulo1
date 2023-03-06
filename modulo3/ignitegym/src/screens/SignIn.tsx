@@ -3,17 +3,27 @@ import BackgroundImg  from '@assets/background.png'
 import  LogoSvg  from '@assets/logo.svg'
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 
 export function SignIn(){
+
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
+
+  function handleNewAccount(){
+    navigation.navigate('signUp');
+  }
+
   return (
     <ScrollView 
     showsVerticalScrollIndicator={false}
     contentContainerStyle={{flexGrow: 1}} >
 
-    <VStack flex={1} px={10} bg="gray.700"  >
+    <VStack flex={1} px={10} >
       <Center>
 
         <Image
+          defaultSource={BackgroundImg}
           source={BackgroundImg}
           alt="Pessoas treinando"
           resizeMode="contain"
@@ -55,7 +65,7 @@ export function SignIn(){
         Ainda não tem acesso?
       </Text>
       <Button 
-      
+      onPress={handleNewAccount}
       variant="outline" 
       title="Criar Conta" />
     </Center>
