@@ -38,6 +38,7 @@ export function History(){
         </Text>
       )}
       px={8}
+      showsVerticalScrollIndicator={false}
       />
     </VStack>
   )
