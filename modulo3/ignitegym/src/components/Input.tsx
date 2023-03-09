@@ -22,7 +22,7 @@ export function Input({errorMessage = null, isInvalid, ...rest}: Props){
       isInvalid={invalid}
       _invalid={{
         borderWidth:1,
-        borderColor: 'red.500'
+        borderColor: "red.500"
       }}
       _focus={{
         bg: "gray.700",
@@ -31,7 +31,7 @@ export function Input({errorMessage = null, isInvalid, ...rest}: Props){
       }}
       {...rest}
       />
-      <FormControl.ErrorMessage mt={0} >
+      <FormControl.ErrorMessage mt={0} _text={{color: "red.500"}} >
         {errorMessage}
       </FormControl.ErrorMessage>
     </FormControl>

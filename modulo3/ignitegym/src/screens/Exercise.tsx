@@ -26,7 +26,7 @@ export function Exercise(){
         </TouchableOpacity>
 
         <HStack justifyContent="space-between" mt={4} mb={8} alignItems="center" >
-          <Heading color="gray.100" fontSize="lg" flexShrink={1} >
+          <Heading color="gray.100" fontFamily={"heading"} fontSize="lg" flexShrink={1} >
             Flexão com Halteres
           </Heading>
           <HStack alignItems="center">

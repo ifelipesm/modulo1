@@ -130,7 +130,7 @@ export function SignUp(){
    
       <Button 
       onPress={handleGoBack}
-      mt={24}
+      mt={12}
       variant="outline" 
       title="Voltar para o login" />
 
