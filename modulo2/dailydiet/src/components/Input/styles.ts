@@ -1,4 +1,5 @@
-import { TextInput } from 'react-native';
+
+import { TextInput, View } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
   export const NameView = styled.View`
@@ -33,12 +34,11 @@ import styled, { css } from 'styled-components/native';
 
   `;
 
-  export const TextInputBorder = styled.View`
+  export const TextInputBorder = styled(View)`
 
     border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
     border-radius: 6px;
     box-sizing: border-box;
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -93,9 +93,6 @@ import styled, { css } from 'styled-components/native';
   export const DescriptionBox = styled(TextInputBorder)`
     width: 327px;
     height: 120px;
-    padding: 14px;
-
-    text-align: justify;
   `;
 
   export const DescriptionText = styled(TextInputFont)`
@@ -107,6 +104,7 @@ import styled, { css } from 'styled-components/native';
   export const DayLabel = styled(TextLabel)` 
     width: 32px;
     height: 18px;  
+
   `;
 
   export const DayBox = styled(TextInputBorder)`
