@@ -1,9 +1,7 @@
 import { Loading } from "@components/Loading";
-import { AuthContext } from "@contexts/AuthContext";
 import { useAuth } from "@hooks/useAuth";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { Box, useTheme } from "native-base";
-import { useContext } from "react";
 import { AppRoutes } from "./app.routes";
 import { AuthRoutes } from "./auth.routes";
 
