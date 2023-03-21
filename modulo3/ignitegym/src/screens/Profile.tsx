@@ -13,6 +13,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@hooks/useAuth";
 import { api } from "@services/api";
 import { AppError } from "@utils/AppError";
+import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
+
 
 const PHOTO_SIZE = 33;
 
@@ -45,7 +47,6 @@ const profileSchema = yup.object({
 export function Profile(){
   const [updating,setUpdating] = useState(false);
   const [photoIsLoading,setPhotoIsLoading] = useState(false);
-  const [userPhoto,setUserPhoto] = useState('https://github.com/ifelipesm.png');
   
   const toast = useToast();
   const { user,updateUserProfile } = useAuth(); //Pegando dados do context
@@ -103,16 +104,44 @@ export function Profile(){
       }
       if(photoSelected.assets[0].uri){
         const photoInfo  = await FileSystem.getInfoAsync(photoSelected.assets[0].uri);
-        if(photoInfo.exists && (photoInfo.size / 1024 / 1024 < 5 ))
-        setUserPhoto(photoSelected.assets[0].uri);
-        else{
+        if(photoInfo.exists && (photoInfo.size / 1024 / 1024 > 5 )) {
+ 
           return toast.show({
             title: 'Imagem muito grande. Escolha uma de até 5 MB.',
             placement: 'top',
             bgColor: 'red.500'
           })
+          
         }
       }
+
+      const fileExtension = photoSelected.assets[0].uri.split(',').pop();
+
+      const photoFile = {
+        name: `${user.name}.${fileExtension}`.toLowerCase(),
+        uri: photoSelected.assets[0].uri,
+        type: `${photoSelected.assets[0].type}/${fileExtension}`
+      } as any;
+
+      const userPhotoUploadForm = new FormData();
+      userPhotoUploadForm.append('avatar', photoFile);
+
+      const avatarUpdatedResponse = await api.patch('/users/avatar', userPhotoUploadForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      
+      const userUpdated = user;
+      userUpdated.avatar = avatarUpdatedResponse.data.avatar;
+      await updateUserProfile(userUpdated);
+
+      toast.show({
+        title: 'Foto atualizada com sucesso.',
+        placement: 'top',
+        bgColor: 'green.500',
+      })
+
     }
     catch(error){
       Alert('Não foi possível carregar a imagem')
@@ -138,7 +167,10 @@ export function Profile(){
             /> 
             :
             <UserPhoto
-              source={{uri: userPhoto}}
+              source={
+                user.avatar 
+                ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` } 
+                : defaultUserPhotoImg }
               alt="User Photo"
               size={PHOTO_SIZE}
             />

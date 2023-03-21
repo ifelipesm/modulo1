@@ -7,9 +7,9 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 export type AuthContextDataProps = {
   user: UserDTO;
   signIn: (email: string, password: string) => Promise<void>;
+  updateUserProfile: (userUpdated: UserDTO) => Promise<void>;
   signOut: () => Promise<void>;
   isLoadingUserStorageData: boolean;
-  updateUserProfile: (userUpdated: UserDTO) => Promise<void>;
 
 }
 
