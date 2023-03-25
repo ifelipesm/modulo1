@@ -115,7 +115,7 @@ export function Profile(){
         }
       }
 
-      const fileExtension = photoSelected.assets[0].uri.split(',').pop();
+      const fileExtension = photoSelected.assets[0].uri.split('.').pop();
 
       const photoFile = {
         name: `${user.name}.${fileExtension}`.toLowerCase(),
@@ -143,7 +143,13 @@ export function Profile(){
 
     }
     catch(error){
-      Alert('Não foi possível carregar a imagem')
+      const isAppError = error instanceof AppError;
+      const title = isAppError ? error.message : 'Não foi possível atualizar o avatar.'
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      })
     }
     finally{
       setPhotoIsLoading(false);
