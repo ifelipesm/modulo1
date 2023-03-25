@@ -1,10 +1,11 @@
+import { HistoryDTO } from "@dtos/HistoryDTO";
 import { Heading, HStack, Text, VStack } from "native-base";
 
 type Props = {
-  name:string;
+  data: HistoryDTO
 }
 
-export function HistoryCard({name}:Props){
+export function HistoryCard({data}:Props){
   return (
     <HStack 
       w="full" px={5} py={4} mb={3} bg="gray.600" rounded="md" 
@@ -12,16 +13,16 @@ export function HistoryCard({name}:Props){
     >
       <VStack mr={5}>
         <Heading  color="white" fontFamily={"heading"} fontSize="md" textTransform="capitalize">
-          Costas
+          {data.group}
         </Heading>
       
         <Text color="gray.100"  fontSize="lg" numberOfLines={1} >
-          {name}
+          {data.name}
         </Text>
       </VStack>
 
       <Text color="gray.300"  fontSize="md">
-        8:34
+        {data.hour}
       </Text>
     </HStack>
   )
