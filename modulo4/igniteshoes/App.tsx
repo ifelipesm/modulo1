@@ -9,13 +9,33 @@ import { THEME } from './src/theme';
 import { Loading } from './src/components/Loading';
 
 import { CartContextProvider } from './src/contexts/CartContext';
+import { AppId } from './src/AppId';
+import { tagUserCreate } from './src/notifications/notificationsTags';
+import { useEffect } from 'react';
 
-OneSignal.setAppId("your-id")
-
-OneSignal.setEmail('dev@igniteshoes.com');
+OneSignal.setAppId(AppId)
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  
+  tagUserCreate();
+  
+  useEffect(()=>{
+    const unsubscribe = OneSignal.setNotificationOpenedHandler((response)=>{
+      const { actionId } = response.action as any;
+
+      switch(actionId){
+        case '1':
+          return console.log('Aceitar');
+        case '2':
+          return console.log('Cancelar');
+        default:
+          return console.log('Indefinido')
+      }
+    })
+    return () => unsubscribe;
+  },[])
+
 
   return (
     <NativeBaseProvider theme={THEME}>
@@ -27,6 +47,7 @@ export default function App() {
       <CartContextProvider>
         {fontsLoaded ? <Routes /> : <Loading />}
       </CartContextProvider>
+     
     </NativeBaseProvider>
   );
 }
