@@ -7,3 +7,7 @@ export function tagUserCreate(){
     'user_email': 'dev@igniteshoes.com'
   })
 }
+
+export function tagCartUpdate(itemsCount: string){
+  OneSignal.sendTag('cart_items_count',itemsCount);
+}

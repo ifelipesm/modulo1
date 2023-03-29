@@ -19,23 +19,6 @@ export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
   
   tagUserCreate();
-  
-  useEffect(()=>{
-    const unsubscribe = OneSignal.setNotificationOpenedHandler((response)=>{
-      const { actionId } = response.action as any;
-
-      switch(actionId){
-        case '1':
-          return console.log('Aceitar');
-        case '2':
-          return console.log('Cancelar');
-        default:
-          return console.log('Indefinido')
-      }
-    })
-    return () => unsubscribe;
-  },[])
-
 
   return (
     <NativeBaseProvider theme={THEME}>
