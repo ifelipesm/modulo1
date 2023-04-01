@@ -4,11 +4,11 @@ export const THEME = extendTheme(
   {
     colors: {
       blue: {
-        standard:'#364D9D',
-        light: '#647AC7',
+        700:'#364D9D',
+        500: '#647AC7',
       },
       red: {
-        light: '##EE7979',
+        500: '#EE7979',
       },
       gray: {
         100: '#1A181B',
@@ -22,8 +22,8 @@ export const THEME = extendTheme(
 
     },
     fonts: {
-      bold: 'Karla_700Bold',
-      regular: 'Karla_400Regular',
+      heading: 'Karla_700Bold',
+      body: 'Karla_400Regular',
     },
     fontSizes: {
       xs: 12,
@@ -32,9 +32,5 @@ export const THEME = extendTheme(
       lg: 20,
       xl: 24,
     },
-    sizes: {
-      14: 56,
-      33: 148
-    }
   }
 ) 
