@@ -2,9 +2,24 @@ import { Box, Center, ScrollView, Text, VStack} from "native-base";
 import LogoSvg from '@assets/logo.svg'
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
+import { AuthFooter } from "@components/AuthFooter";
 
+
+type FormData = {
+  email: string;
+  password: string;
+}
 
 export function SignIn(){
+
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
+
+  function handleNewAccount(){
+    navigation.navigate('signUp');
+  }
+
   return(
     <ScrollView 
     showsVerticalScrollIndicator={false}
@@ -21,7 +36,6 @@ export function SignIn(){
               </Text>
               <Input
               placeholder="E-mail"
-              keyboardType="email-address"
               autoCapitalize="none"
               />
               <Input
@@ -33,12 +47,9 @@ export function SignIn(){
               <Button mt="8" title="Entrar" variant="blue" />
           </Center>
         </Box>
-        <Center mx="12" mt="16">
-            <Text color="gray.200" fontSize="md" fontFamily="body" mb={4} >
-              Ainda não tem acesso?
-            </Text>
-            <Button mt="4" mb="20" title="Criar uma conta" variant="gray" />
-        </Center>
+        <Box mx="12" mt="16">
+          <AuthFooter action={handleNewAccount} label="Ainda não tem acesso?" title="Criar uma conta" />
+        </Box>
 
       </VStack>
     

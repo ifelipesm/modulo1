@@ -16,7 +16,7 @@ export function Input({...rest}: Props){
       mb={4}
       fontSize="md"
       color="gray.200"
-      fontFamily="regular"
+      fontFamily="body"
       placeholderTextColor="gray.400"
       _focus={{
         bg: "gray.700",
