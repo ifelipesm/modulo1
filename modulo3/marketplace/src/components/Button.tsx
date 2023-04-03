@@ -7,7 +7,7 @@ type Props = IButtonProps & {
 
 export function Button({title,variant="blue", ...rest}:Props){
   return (
-    <ButtonNativeBase
+    <ButtonNativeBase 
     w="full"
     h={12}
     bg={variant === "blue" ? "blue.500" : ( variant === 'gray' ? "gray.500" : "gray.100" )  }

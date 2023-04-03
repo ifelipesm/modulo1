@@ -1,10 +1,14 @@
-import { Box, Center, ScrollView, Text, VStack} from "native-base";
+import { Box, Center, ScrollView, Text, VStack, useToast} from "native-base";
 import LogoSvg from '@assets/logo.svg'
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { AuthFooter } from "@components/AuthFooter";
+import { useEffect, useState } from "react";
+import { AppError } from "@utils/AppError";
+import { useAuth } from "@hooks/useAuth";
+import { Controller, useForm } from "react-hook-form";
 
 
 type FormData = {
@@ -13,11 +17,36 @@ type FormData = {
 }
 
 export function SignIn(){
-
+  const [isLoading,setIsLoading] = useState(false);
+  const { signIn } = useAuth();
+  const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+
+  const { control, handleSubmit, formState: {errors} } = useForm<FormData>();
 
   function handleNewAccount(){
     navigation.navigate('signUp');
+  }
+
+  async function handleSignIn({email,password}: FormData){
+    
+    try{
+      setIsLoading(true);
+      console.log(isLoading);
+      await signIn(email,password);
+    } 
+    catch(error){
+      const isAppError = error instanceof AppError;
+      const title = isAppError ? error.message : 'Não foi possível acessar. Tente novamente mais tarde.'
+      toast.show({
+        title,
+        placement:'top',
+        bgColor: 'red.500'
+      });
+    }
+    finally{
+      setIsLoading(false);
+    }
   }
 
   return(
@@ -34,17 +63,38 @@ export function SignIn(){
               <Text color="gray.200" fontSize="md" fontFamily="body" mb={4} >
                 Acesse sua conta
               </Text>
-              <Input
-              placeholder="E-mail"
-              autoCapitalize="none"
+              <Controller
+                control={control}
+                name="email"
+                rules={{required: 'Informe o e-mail'}}
+                render={({field: { onChange }}) => (
+                <Input 
+                  placeholder="E-mail"
+                  keyboardType="email-address"
+                  onChangeText={onChange}
+                  errorMessage={errors.email?.message}
+                  autoCapitalize="none"
+                />
+                )}
               />
-              <Input
-              placeholder="Password"
-              secureTextEntry
-              autoCapitalize="none"
+             
+              <Controller
+                control={control}
+                name="password"
+                rules={{required: 'Informe a senha'}}
+                render={({field: { onChange }})=> (
+                  <Input 
+                    onChangeText={onChange}
+                    secureTextEntry
+                    placeholder="Senha"
+                    errorMessage={errors.password?.message}
+                    autoCapitalize="none"
+                  />
+                )}
               />
+
             </Center> 
-              <Button mt="8" title="Entrar" variant="blue" />
+              <Button isLoading={isLoading} mt="8" title="Entrar" variant="blue" onPress={handleSubmit(handleSignIn)} />
           </Center>
         </Box>
         <Box mx="12" mt="16">
