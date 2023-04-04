@@ -55,7 +55,8 @@ const PHOTO_SIZE = 88;
 export function SignUp(){
   const [isLoading,setIsLoading] = useState(false);
   const [photoIsLoading,setPhotoIsLoading] = useState(false)
-  const [avatarData,setAvatarData] = useState<AvatarProps>({} as AvatarProps);
+  const [data,setData] = useState<FormData>({} as FormData);
+  const [avatarPhoto,setAvatarPhoto] = useState<AvatarProps>({} as AvatarProps);
 
   const UUID = uuid.v1();
   const toast = useToast();
@@ -72,15 +73,23 @@ export function SignUp(){
   async function handleSignUp({name,email,tel,password}:FormDataProps){
     try{
       setIsLoading(true);
-      const avatar = avatarData.name;
-      const data = {name,email,tel,password,avatar};
-      console.log(data);
+      data.append('name',name);
+      data.append('email',email);
+      data.append('tel',tel);
+      data.append('password',password);
+      console.log("Dados do usuário -> ",data);
+      
       await api.post('/users',data,{
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('passou')
+
+      toast.show({
+        title:'Conta criada com sucesso!',
+        placement:'top',
+        bgColor: 'green.500'
+      });
     }
     catch(error){
       setIsLoading(false);
@@ -93,6 +102,9 @@ export function SignUp(){
         placement:'top',
         bgColor: 'red.500'
       });
+    }
+    finally{
+      setIsLoading(false);
     }
   }
 
@@ -131,8 +143,11 @@ export function SignUp(){
           type: `${photoSelected.assets[0].type}/${fileExtension}`
         } as any;
 
-        setAvatarData(photoFile);
-        console.log(photoFile.name)
+        const userPhotoUploadForm = new FormData();
+        userPhotoUploadForm.append('avatar', photoFile, photoFile.name);
+        setAvatarPhoto(photoFile);
+        setData(userPhotoUploadForm);
+        console.log(data);
   
         toast.show({
           title: 'Foto carregada com sucesso.',
@@ -193,7 +208,7 @@ export function SignUp(){
                 <UserPhoto 
                   onClick={handleUserPhotoSelect}
                   source={
-                   avatarData.uri !== undefined ? { uri: avatarData.uri } : defaultUserImg
+                   avatarPhoto.uri !== undefined ? { uri: avatarPhoto.uri } : defaultUserImg
                   }
                   alt="Foto de Perfil"
                   size={PHOTO_SIZE}
@@ -274,7 +289,7 @@ export function SignUp(){
 
             </Center>
             <Center mt={6} mb={12} >
-              <Button isLoading={isLoading} onPress={handleSubmit(handleSignUp)} title="Criar" variant="black" />
+              <Button isLoading={isLoading} onPress={handleSubmit(handleSignUp)} title="Criar" type="black" />
             </Center>
             <Box>
               <AuthFooter action={handleSignIn} label="Já tem uma conta?" title="Ir para o login" />

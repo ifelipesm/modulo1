@@ -45,6 +45,12 @@ export function SignUp(){
       await api.post('/users',{name,email,password});
       await signIn(email,password)
 
+      toast.show({
+        title:'Conta criada com sucesso!',
+        placement:'top',
+        bgColor: 'green.500'
+      });
+
     } catch(error){
       setIsLoading(false);
 

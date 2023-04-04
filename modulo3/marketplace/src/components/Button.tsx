@@ -1,24 +1,42 @@
-import { Button as ButtonNativeBase, IButtonProps, Text } from 'native-base'
+import { Button as ButtonNativeBase, IButtonProps, Text, useTheme } from "native-base"
 
 type Props = IButtonProps & {
   title: string;
-  variant?: 'blue' | 'gray' | 'black';
+  type?: "blue" | "gray" | "black";
 }
 
-export function Button({title,variant="blue", ...rest}:Props){
+export function Button({title,type="blue", ...rest}:Props){
+  
+  const theme = useTheme();
+
+    const bgColor = {
+        blue: {
+            default: theme.colors.lightBlue['500'],
+            pressed: theme.colors.blue['500'],
+        },
+        black: {
+            default: theme.colors.gray['100'],
+            pressed: theme.colors.gray['200'],
+        },
+        gray: {
+            default: theme.colors.gray['500'],
+            pressed: theme.colors.gray['400'],
+        }
+    } as any ;
+  
   return (
     <ButtonNativeBase 
     w="full"
     h={12}
-    bg={variant === "blue" ? "blue.500" : ( variant === 'gray' ? "gray.500" : "gray.100" )  }
+    bg={bgColor[type].default}
     borderRadius="lg"
     _pressed={{
-        backgroundColor: variant === "blue" ? "blue.500" : ( variant === 'gray' ? "gray.500" : "gray.100" )
+        backgroundColor: bgColor[type].pressed
       }}
     {...rest}
     >
       <Text 
-      color={variant === "blue" ? "gray.700" : (variant === "gray" ? "gray.200" : "gray.700")  }
+      color={type === "blue" || type === "black" ? "gray.700" : "gray.200" }
       fontFamily="heading" 
       fontSize="sm">
         {title}
