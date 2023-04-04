@@ -40,7 +40,7 @@ const profileSchema = yup.object({
   .oneOf([yup.ref('password'), null], 'As senhas devem coincidir.')
   .when('password', {
     is: (field: string) => field,
-    then: (schema) => schema.nullable().required('Confirme a senha.'),
+    then: (schema) => schema.nullable().transform((value) => !!value ? value : null).required('Confirme a senha.'),
   })
 });
 
