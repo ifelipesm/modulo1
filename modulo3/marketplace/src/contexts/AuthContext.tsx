@@ -44,8 +44,13 @@ export function AuthContextProvider({  children  }:  AuthContextProviderProps){
   }
 
   async function signIn(email: string, password: string){
+    console.log("entrou no signin")
     try{
-      const { data } = await api.post('/sessions', { email, password });
+      const { data } = await api.post("/sessions", { email, password });
+      console.log("passou");
+      
+      setUser(data.user);
+      console.log(user);
       if(data.user && data.token && data.refresh_token){
         await storageUserAndTokenSave(data.user,data.token,data.refresh_token);
         await userAndTokenUpdate(data.user,data.token);

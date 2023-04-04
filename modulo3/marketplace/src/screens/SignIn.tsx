@@ -1,14 +1,20 @@
+import { useState } from "react";
 import { Box, Center, ScrollView, Text, VStack, useToast} from "native-base";
-import LogoSvg from '@assets/logo.svg'
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
+
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
-import { AuthFooter } from "@components/AuthFooter";
-import { useEffect, useState } from "react";
-import { AppError } from "@utils/AppError";
 import { useAuth } from "@hooks/useAuth";
 import { Controller, useForm } from "react-hook-form";
+
+import { Input } from "@components/Input";
+import { Button } from "@components/Button";
+import { AuthFooter } from "@components/AuthFooter";
+
+import LogoSvg from "@assets/logo.svg"
+import { AppError } from "@utils/AppError";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 
 
 type FormData = {
@@ -16,36 +22,42 @@ type FormData = {
   password: string;
 }
 
+const signInSchema = yup.object({
+  email: yup.string().required("Informe o E-mail"),
+  password: yup.string().required("Informe a Senha"),
+});
+
 export function SignIn(){
   const [isLoading,setIsLoading] = useState(false);
   const { signIn } = useAuth();
   const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { control, handleSubmit, formState: {errors} } = useForm<FormData>();
+  const { control, handleSubmit, formState: {errors} } = useForm<FormData>({
+    resolver: yupResolver(signInSchema)
+  });
 
   function handleNewAccount(){
-    navigation.navigate('signUp');
+    navigation.navigate("signUp");
   }
 
   async function handleSignIn({email,password}: FormData){
-    
+  
     try{
       setIsLoading(true);
-      console.log(isLoading);
+      console.log("entrou -> ",isLoading);
       await signIn(email,password);
-    } 
-    catch(error){
+    } catch(error){
+      console.log("deu erro -> ",isLoading);
+      
       const isAppError = error instanceof AppError;
-      const title = isAppError ? error.message : 'Não foi possível acessar. Tente novamente mais tarde.'
+      const title = isAppError ? error.message : "Não foi possível acessar. Tente novamente mais tarde."
+      setIsLoading(false);
       toast.show({
         title,
-        placement:'top',
-        bgColor: 'red.500'
+        placement:"top",
+        bgColor: "red.500"
       });
-    }
-    finally{
-      setIsLoading(false);
     }
   }
 
@@ -66,12 +78,12 @@ export function SignIn(){
               <Controller
                 control={control}
                 name="email"
-                rules={{required: 'Informe o e-mail'}}
-                render={({field: { onChange }}) => (
+                render={({field: { onChange,value }}) => (
                 <Input 
                   placeholder="E-mail"
                   keyboardType="email-address"
                   onChangeText={onChange}
+                  value={value}
                   errorMessage={errors.email?.message}
                   autoCapitalize="none"
                 />
@@ -81,20 +93,20 @@ export function SignIn(){
               <Controller
                 control={control}
                 name="password"
-                rules={{required: 'Informe a senha'}}
-                render={({field: { onChange }})=> (
+                render={({field: { onChange, value }})=> (
                   <Input 
+                    value={value}
                     onChangeText={onChange}
                     secureTextEntry
                     placeholder="Senha"
                     errorMessage={errors.password?.message}
-                    autoCapitalize="none"
                   />
                 )}
               />
 
             </Center> 
-              <Button isLoading={isLoading} mt="8" title="Entrar" variant="blue" onPress={handleSubmit(handleSignIn)} />
+              <Button mt={8} isLoading={isLoading} onPress={handleSubmit(handleSignIn)} title="Entrar" type="blue" 
+              />
           </Center>
         </Box>
         <Box mx="12" mt="16">
