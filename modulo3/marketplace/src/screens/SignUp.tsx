@@ -53,8 +53,13 @@ const signUpSchema = yup.object({
 const PHOTO_SIZE = 88;
 
 export function SignUp(){
+
   const [isLoading,setIsLoading] = useState(false);
-  const [photoIsLoading,setPhotoIsLoading] = useState(false)
+  const [isShown,setIsShown] = useState(false);
+  const [isShownPasswordConfirm,setIsShownPasswordConfirm] = useState(false);
+
+
+  const [photoIsLoading,setPhotoIsLoading] = useState(false);
   const [data,setData] = useState<FormData>({} as FormData);
   const [avatarPhoto,setAvatarPhoto] = useState<AvatarProps>({} as AvatarProps);
 
@@ -65,6 +70,13 @@ export function SignUp(){
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
     resolver: yupResolver(signUpSchema),
   });
+
+  function togglePassword(){
+    isShown ? setIsShown(false) : setIsShown(true);
+  }
+  function togglePasswordConfirm(){
+    isShownPasswordConfirm ? setIsShownPasswordConfirm(false) : setIsShownPasswordConfirm(true);
+  }
 
   function handleSignIn(){
     navigation.navigate('signIn');
@@ -263,12 +275,15 @@ export function SignUp(){
               name="password"
               render={({field: { onChange,value }})=> (
                 <Input 
-                  placeholder="Senha"
-                  onChangeText={onChange}
-                  value={value}
-                  errorMessage={errors.password?.message}
-                  autoCapitalize="none"
-                  secureTextEntry
+                placeholder="Senha"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.password?.message}
+                autoCapitalize="none"
+                field="password"
+                OnTogglePassword={togglePassword}
+                isShown={isShown}
+                secureTextEntry={isShown}
               />
               )}
             />
@@ -282,7 +297,10 @@ export function SignUp(){
                   value={value}
                   errorMessage={errors.password_confirm?.message}
                   autoCapitalize="none"
-                  secureTextEntry
+                  field="passwordConfirm"
+                  OnTogglePasswordConfirm={togglePasswordConfirm}
+                  isShownPasswordConfirm={isShownPasswordConfirm}
+                  secureTextEntry={isShownPasswordConfirm}
               />
               )}
             />

@@ -1,12 +1,24 @@
-import { Input as NativeBaseInput, IInputProps, FormControl } from "native-base"
+import { useFocusEffect } from "@react-navigation/native";
+import { Input as NativeBaseInput, IInputProps, FormControl, Button, Box } from "native-base"
+import { Eye,EyeClosed } from "phosphor-react-native"
+import { useCallback, useEffect } from "react";
+import { TouchableOpacity } from "react-native";
 
   type Props = IInputProps & {
   errorMessage?: string | null;
+  field?: string;
+  isShown?: boolean;
+  isShownPasswordConfirm?: boolean;
+  OnTogglePassword?: () => void;
+  OnTogglePasswordConfirm?: () => void;
   }
 
-export function Input({errorMessage = null,isInvalid,...rest}: Props){
+export function Input({errorMessage = null,field,isShown,isShownPasswordConfirm,OnTogglePassword,OnTogglePasswordConfirm,isInvalid,...rest}: Props){
   const invalid = !!errorMessage || isInvalid;
- 
+  
+  useEffect(()=>{
+    OnTogglePassword
+  },[isShown])
   
   return (
     <FormControl isInvalid={invalid} mb={4} >
@@ -35,6 +47,51 @@ export function Input({errorMessage = null,isInvalid,...rest}: Props){
       }}
       {...rest}
       />
+        {
+          field=== 'password' ?
+            <TouchableOpacity onPress={OnTogglePassword}>
+              <Box
+              bg="gray.700"
+              w="5"
+              h="5"
+              alignItems="center"
+              position="absolute"
+              right="1/6"
+              left="64"
+              bottom="3"
+              >
+            {
+              isShown === false ?
+                <Eye color="gray" size="20"  />
+                :
+                <EyeClosed color="gray" size="20"/>
+            }
+              </Box>
+            </TouchableOpacity>
+          :
+          field === 'passwordConfirm' ?
+            <TouchableOpacity onPress={OnTogglePasswordConfirm}>
+              <Box
+              bg="gray.700"
+              w="5"
+              h="5"
+              alignItems="center"
+              position="absolute"
+              right="1/6"
+              left="64"
+              bottom="3"
+              >
+            {
+              isShownPasswordConfirm == false ?
+                <Eye color="gray" size="20"  />
+                :
+                <EyeClosed color="gray" size="20"/>
+            }
+              </Box>
+            </TouchableOpacity>
+          :
+          <></>
+        }
       <FormControl.ErrorMessage mt={0} _text={{color: "red.500",fontSize:'sm'}} >
         {errorMessage}
       </FormControl.ErrorMessage>
