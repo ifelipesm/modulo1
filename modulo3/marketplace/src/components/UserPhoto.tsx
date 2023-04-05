@@ -1,4 +1,4 @@
-import { Box, Button, IImageProps, Icon, Image, View } from "native-base";
+import { Box, IImageProps, Icon, Image, View } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { PencilSimpleLine } from "phosphor-react-native"
 
@@ -10,7 +10,6 @@ type Props = IImageProps & {
 export function UserPhoto({size,onClick,...rest}:Props){
   return(
     <>
-      <TouchableOpacity onPress={onClick} >
         <Image
           w={size}
           h={size}
@@ -19,17 +18,20 @@ export function UserPhoto({size,onClick,...rest}:Props){
           borderColor="blue.500"
           {...rest}
         />
-            <Button
-              w={10}
-              h={10}
-              position="absolute"
-              left={52}
-              bottom={0}
-              bgColor="blue.500"
-              rounded="full"
-              >
-              <PencilSimpleLine size="18" color="white" />
-            </Button>
+        <TouchableOpacity onPress={onClick} >
+          <Box
+            w={9}
+            h={9}
+            position="absolute"
+            left={21}
+            bottom={0}
+            bgColor="blue.500"
+            rounded="full"
+            alignItems="center"
+            justifyContent="center"
+            >
+            <PencilSimpleLine size="18" color="white" />
+          </Box>
         </TouchableOpacity>
       </>
   )
