@@ -29,6 +29,7 @@ const signInSchema = yup.object({
 
 export function SignIn(){
   const [isLoading,setIsLoading] = useState(false);
+  const [isShown,setIsShown] = useState(false);
   const { signIn } = useAuth();
   const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
@@ -36,6 +37,10 @@ export function SignIn(){
   const { control, handleSubmit, formState: {errors} } = useForm<FormData>({
     resolver: yupResolver(signInSchema)
   });
+
+  function togglePassword(){
+    isShown ? setIsShown(false) : setIsShown(true);
+  }
 
   function handleNewAccount(){
     navigation.navigate("signUp");
@@ -95,9 +100,12 @@ export function SignIn(){
                 name="password"
                 render={({field: { onChange, value }})=> (
                   <Input 
+                    field="password"
+                    OnTogglePassword={togglePassword}
                     value={value}
                     onChangeText={onChange}
-                    secureTextEntry
+                    isShown={isShown}
+                    secureTextEntry={isShown}
                     placeholder="Senha"
                     errorMessage={errors.password?.message}
                   />
