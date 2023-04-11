@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Center, ScrollView, Text, VStack, useToast} from "native-base";
 
 import { useNavigation } from "@react-navigation/native";
@@ -16,7 +16,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 
-
 type FormData = {
   email: string;
   password: string;
@@ -30,9 +29,10 @@ const signInSchema = yup.object({
 export function SignIn(){
   const [isLoading,setIsLoading] = useState(false);
   const [isShown,setIsShown] = useState(false);
-  const { signIn } = useAuth();
+  
   const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const { signIn } = useAuth();
 
   const { control, handleSubmit, formState: {errors} } = useForm<FormData>({
     resolver: yupResolver(signInSchema)
@@ -46,23 +46,28 @@ export function SignIn(){
     navigation.navigate("signUp");
   }
 
-  async function handleSignIn({email,password}: FormData){
   
+  async function handleSignIn({email,password}: FormData){
+    
     try{
-      setIsLoading(true);
-      console.log("entrou -> ",isLoading);
-      await signIn(email,password);
-    } catch(error){
-      console.log("deu erro -> ",isLoading);
       
+      setIsLoading(true);
+      await signIn(email,password);
+
+    } catch(error: any){
+
       const isAppError = error instanceof AppError;
       const title = isAppError ? error.message : "Não foi possível acessar. Tente novamente mais tarde."
-      setIsLoading(false);
+      
       toast.show({
         title,
         placement:"top",
         bgColor: "red.500"
       });
+
+    }
+    finally{
+      setIsLoading(false);
     }
   }
 
@@ -77,7 +82,7 @@ export function SignIn(){
             <LogoSvg/>
       
             <Center mt="20">
-              <Text color="gray.200" fontSize="md" fontFamily="body" mb={4} >
+              <Text color="gray.200" fontSize="md" fontFamily="body" mb="4" >
                 Acesse sua conta
               </Text>
               <Controller
@@ -100,20 +105,20 @@ export function SignIn(){
                 name="password"
                 render={({field: { onChange, value }})=> (
                   <Input 
-                    field="password"
-                    OnTogglePassword={togglePassword}
-                    value={value}
+                    placeholder="Senha"
                     onChangeText={onChange}
+                    value={value}
+                    errorMessage={errors.password?.message}
+                    field="password"
+                    onTogglePassword={togglePassword}
                     isShown={isShown}
                     secureTextEntry={isShown}
-                    placeholder="Senha"
-                    errorMessage={errors.password?.message}
                   />
                 )}
               />
 
             </Center> 
-              <Button mt={8} isLoading={isLoading} onPress={handleSubmit(handleSignIn)} title="Entrar" type="blue" 
+              <Button mt="8" isLoading={isLoading} onPress={handleSubmit(handleSignIn)} title="Entrar" type="blue" 
               />
           </Center>
         </Box>

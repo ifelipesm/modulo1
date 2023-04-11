@@ -24,6 +24,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from "react-hook-form";
 import { api } from "@services/api";
 import { AppError } from "@utils/AppError";
+import { useAuth } from "@hooks/useAuth";
 
 type FormDataProps = {
   avatar: string;
@@ -66,6 +67,7 @@ export function SignUp(){
   const UUID = uuid.v1();
   const toast = useToast();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const { signIn } = useAuth();
 
   const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
     resolver: yupResolver(signUpSchema),
@@ -85,6 +87,7 @@ export function SignUp(){
   async function handleSignUp({name,email,tel,password}:FormDataProps){
     try{
       setIsLoading(true);
+      setData({} as FormData);
       data.append('name',name);
       data.append('email',email);
       data.append('tel',tel);
@@ -96,6 +99,8 @@ export function SignUp(){
           'Content-Type': 'multipart/form-data'
         }
       });
+
+      await signIn(email,password);
 
       toast.show({
         title:'Conta criada com sucesso!',
@@ -281,7 +286,7 @@ export function SignUp(){
                 errorMessage={errors.password?.message}
                 autoCapitalize="none"
                 field="password"
-                OnTogglePassword={togglePassword}
+                onTogglePassword={togglePassword}
                 isShown={isShown}
                 secureTextEntry={isShown}
               />
@@ -298,7 +303,7 @@ export function SignUp(){
                   errorMessage={errors.password_confirm?.message}
                   autoCapitalize="none"
                   field="passwordConfirm"
-                  OnTogglePasswordConfirm={togglePasswordConfirm}
+                  onTogglePasswordConfirm={togglePasswordConfirm}
                   isShownPasswordConfirm={isShownPasswordConfirm}
                   secureTextEntry={isShownPasswordConfirm}
               />
