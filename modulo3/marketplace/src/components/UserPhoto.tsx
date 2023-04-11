@@ -4,7 +4,7 @@ import { PencilSimpleLine } from "phosphor-react-native"
 
 type Props = IImageProps & {
   size: number;
-  onClick: ()  =>  void;
+  onClick?: ()  =>  void;
 }
 
 export function UserPhoto({size,onClick,...rest}:Props){
