@@ -12,6 +12,8 @@ export function Routes(){
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
 
+  console.log("Dados da requisição -> ",user);
+
 
   if(isLoadingUserStorageData){
     return <Loading />
