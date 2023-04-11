@@ -1,8 +1,9 @@
-import { NativeBaseProvider, StatusBar, View } from "native-base";
+import { NativeBaseProvider, StatusBar } from "native-base";
 import { Karla_400Regular, Karla_700Bold, useFonts } from '@expo-google-fonts/karla'
 import { Loading } from "@components/Loading";
 import { Routes } from "@routes/index";
 import { THEME } from "@theme/index";
+import { AuthContextProvider } from "@contexts/AuthContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Karla_400Regular, Karla_700Bold})
@@ -14,7 +15,9 @@ export default function App() {
       backgroundColor="transparent"
       translucent
       />
+      <AuthContextProvider>
       {fontsLoaded ? <Routes/> : <Loading/>}
+      </AuthContextProvider>
     </NativeBaseProvider>
   );
 }

@@ -5,5 +5,5 @@ import { useContext } from "react";
 
 export function useAuth(){
   const contextData = useContext(AuthContext);
-  return contextData
+  return contextData;
 }

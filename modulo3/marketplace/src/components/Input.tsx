@@ -9,15 +9,15 @@ import { TouchableOpacity } from "react-native";
   field?: string;
   isShown?: boolean;
   isShownPasswordConfirm?: boolean;
-  OnTogglePassword?: () => void;
-  OnTogglePasswordConfirm?: () => void;
+  onTogglePassword?: () => void;
+  onTogglePasswordConfirm?: () => void;
   }
 
-export function Input({errorMessage = null,field,isShown,isShownPasswordConfirm,OnTogglePassword,OnTogglePasswordConfirm,isInvalid,...rest}: Props){
+export function Input({errorMessage = null,field,isShown,isShownPasswordConfirm,onTogglePassword,onTogglePasswordConfirm,isInvalid,...rest}: Props){
   const invalid = !!errorMessage || isInvalid;
   
   useEffect(()=>{
-    OnTogglePassword
+    onTogglePassword
   },[isShown])
   
   return (
@@ -49,7 +49,7 @@ export function Input({errorMessage = null,field,isShown,isShownPasswordConfirm,
       />
         {
           field=== 'password' ?
-            <TouchableOpacity onPress={OnTogglePassword}>
+            <TouchableOpacity onPress={onTogglePassword}>
               <Box
               bg="gray.700"
               w="5"
@@ -70,7 +70,7 @@ export function Input({errorMessage = null,field,isShown,isShownPasswordConfirm,
             </TouchableOpacity>
           :
           field === 'passwordConfirm' ?
-            <TouchableOpacity onPress={OnTogglePasswordConfirm}>
+            <TouchableOpacity onPress={onTogglePasswordConfirm}>
               <Box
               bg="gray.700"
               w="5"

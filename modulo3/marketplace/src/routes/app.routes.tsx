@@ -2,17 +2,19 @@ import { BottomTabNavigationProp, createBottomTabNavigator } from "@react-naviga
 
 import HomeSvg from '@assets/home.svg'
 import AdsSvg from '@assets/ads.svg'
-import LogoutSvg from '@assets/logout.svg'
 
 import { Home } from "@screens/Home";
-import { useTheme } from "native-base";
+import { Box, Center, useTheme } from "native-base";
 import { Platform } from "react-native";
 import { MyAds } from "@screens/MyAds";
 import { AdCreate } from "@screens/AdCreate";
 import { AdEdit } from "@screens/AdEdit";
 import { AdPreview } from "@screens/AdPreview";
 import { AdDetails } from "@screens/AdDetails";
-import { SignIn } from "@screens/SignIn";
+import { useAuth } from "@hooks/useAuth";
+import { TabBarLogout } from "@components/TabBarLogout";
+import LogoutSvg from '@assets/logout.svg'
+
 
 type AppRoutes = {
   home: undefined;
@@ -33,17 +35,19 @@ export function AppRoutes(){
 
   const iconSize = sizes[6];
 
+  const { signOut } = useAuth();
+
   return (
     <Navigator screenOptions={{
       headerShown:false,
       tabBarShowLabel: false,
-      tabBarActiveTintColor: colors.green[500],
-      tabBarInactiveTintColor: colors.gray[200],
+      tabBarActiveTintColor: colors.gray[200],
+      tabBarInactiveTintColor: colors.gray[400],
       tabBarStyle: {
-        backgroundColor: colors.gray[600],
+        backgroundColor: colors.gray[700],
         borderTopWidth: 0,
         height: Platform.OS === 'android' ? 'auto' : 96,
-        paddingBottom: sizes[10],
+        paddingBottom: sizes[8],
         paddingTop: sizes[6]
       }
     }} >
@@ -67,10 +71,10 @@ export function AppRoutes(){
       />
       <Screen
         name="logout"
-        component={SignIn}
+        component={Home}
         options={{
-          tabBarIcon: ({color}) => (
-            <LogoutSvg fill={color} width={iconSize} height={iconSize} />
+          tabBarIcon: () => (
+              <TabBarLogout  iconSize={iconSize} onLogout={signOut} />
           )
         }}
       />
