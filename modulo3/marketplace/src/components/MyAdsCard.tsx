@@ -2,7 +2,7 @@ import { Text,Box, Center, HStack, VStack, useTheme } from "native-base";
 import { Tag,ArrowRight } from 'phosphor-react-native'
 import { TouchableOpacity } from "react-native";
 
-export function AdsCard(){
+export function MyAdsCard(){
 
   const { colors } = useTheme();
 

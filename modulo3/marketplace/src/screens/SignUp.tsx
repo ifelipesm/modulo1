@@ -4,7 +4,7 @@ import { Box, Center, Heading, ScrollView, Skeleton, Text, VStack, useToast } fr
 
 import LogoIcon from '@assets/logo_icon.svg';
 import AvatarCircle from '@assets/avatar.svg';
-import defaultUserImg from "@assets/defaultimg.png"
+import defaultUserImg from "@assets/defaultUserPhoto.png"
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
