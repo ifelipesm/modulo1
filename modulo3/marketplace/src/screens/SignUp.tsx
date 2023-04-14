@@ -56,8 +56,8 @@ const PHOTO_SIZE = 88;
 export function SignUp(){
 
   const [isLoading,setIsLoading] = useState(false);
-  const [isShown,setIsShown] = useState(false);
-  const [isShownPasswordConfirm,setIsShownPasswordConfirm] = useState(false);
+  const [isShown,setIsShown] = useState(true);
+  const [isShownPasswordConfirm,setIsShownPasswordConfirm] = useState(true);
 
 
   const [photoIsLoading,setPhotoIsLoading] = useState(false);

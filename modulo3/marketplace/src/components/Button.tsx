@@ -11,8 +11,8 @@ export function Button({title,type="blue", ...rest}:Props){
 
     const bgColor = {
         blue: {
-            default: theme.colors.lightBlue['500'],
-            pressed: theme.colors.blue['500'],
+            default: theme.colors.blue['500'],
+            pressed: theme.colors.blue['700'],
         },
         black: {
             default: theme.colors.gray['100'],
