@@ -3,8 +3,7 @@ import { BottomTabNavigationProp, createBottomTabNavigator } from "@react-naviga
 import { useTheme } from "native-base";
 import { Platform } from "react-native";
 
-import HomeSvg from '@assets/home.svg'
-import AdsSvg from '@assets/ads.svg'
+import { House, Tag   } from 'phosphor-react-native'
 
 import { Home } from "@screens/Home";
 import { MyAds } from "@screens/MyAds";
@@ -48,8 +47,8 @@ export function AppRoutes(){
         backgroundColor: colors.gray[700],
         borderTopWidth: 0,
         height: Platform.OS === 'android' ? 'auto' : 96,
-        paddingBottom: sizes[8],
-        paddingTop: sizes[6]
+        paddingBottom: sizes[7],
+        paddingTop: sizes[7]
       }
     }} >
       <Screen
@@ -57,7 +56,7 @@ export function AppRoutes(){
         component={Home}
         options={{
           tabBarIcon: ({color}) => (
-            <HomeSvg fill={color} width={iconSize} height={iconSize} />
+            <House color={color} weight="bold" size={iconSize} />
           )
         }}
       />
@@ -66,7 +65,7 @@ export function AppRoutes(){
         component={MyAds}
         options={{
           tabBarIcon: ({color}) => (
-            <AdsSvg fill={color} width={iconSize} height={iconSize} />
+            <Tag color={color} weight="bold" size={iconSize} />
           )
         }}
       />
