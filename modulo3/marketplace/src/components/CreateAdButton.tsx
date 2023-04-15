@@ -1,6 +1,6 @@
 import { TouchableOpacity } from "react-native";
 import { Plus } from 'phosphor-react-native'
-import { Box, Button, Center, HStack,Text, useTheme } from "native-base";
+import { HStack,Text, useTheme } from "native-base";
 
 type Props = {
   onRedirect: () => void;

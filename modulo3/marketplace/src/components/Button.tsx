@@ -3,9 +3,10 @@ import { Button as ButtonNativeBase, IButtonProps, Text, useTheme } from "native
 type Props = IButtonProps & {
   title: string;
   type?: "blue" | "gray" | "black";
+  sizeX: string;
 }
 
-export function Button({title,type="blue", ...rest}:Props){
+export function Button({title,type="blue",sizeX, ...rest}:Props){
   
   const theme = useTheme();
 
@@ -26,7 +27,7 @@ export function Button({title,type="blue", ...rest}:Props){
   
   return (
     <ButtonNativeBase 
-    w="full"
+    w={sizeX}
     h={12}
     bg={bgColor[type].default}
     borderRadius="lg"

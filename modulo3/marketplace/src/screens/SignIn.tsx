@@ -118,7 +118,7 @@ export function SignIn(){
               />
 
             </Center> 
-              <Button mt="8" isLoading={isLoading} onPress={handleSubmit(handleSignIn)} title="Entrar" type="blue" 
+              <Button sizeX="full" mt="8" isLoading={isLoading} onPress={handleSubmit(handleSignIn)} title="Entrar" type="blue" 
               />
           </Center>
         </Box>

@@ -13,7 +13,7 @@ export function AuthFooter({title, label,action}:Props){
     <Text color="gray.200" textAlign="center" fontSize="sm" fontFamily="body" mb={4} >
       {label}
     </Text>
-    <Button title={title} type="gray" onPress={action} />
+    <Button sizeX="full" title={title} type="gray" onPress={action} />
   </Box>
   )
 }

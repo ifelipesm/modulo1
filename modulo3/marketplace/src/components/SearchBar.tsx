@@ -3,7 +3,11 @@ import { MagnifyingGlass,  Sliders } from 'phosphor-react-native'
 import DividerPng from '@assets/divider.svg';
 import { TouchableOpacity } from "react-native";
 
-export function SearchBar(){
+type Props = {
+  onFilterPress: () => void;
+}
+
+export function SearchBar({onFilterPress}:Props){
 
   const { colors } = useTheme();
 
@@ -37,19 +41,9 @@ export function SearchBar(){
 
             <DividerPng style={{ margin:13, marginRight:0}} />
 
-          <TouchableOpacity style={{margin:10, marginRight:0}}>
+          <TouchableOpacity onPress={onFilterPress} style={{margin:10, marginRight:0}}>
             <Sliders  color={colors.gray[200]}  />
           </TouchableOpacity>
-          { //Fazendo com Native Base, porém sem o color
-            /*
-            <Icon as={MagnifyingGlass} color="red.600"  mt={3} mr={2}
-            />
-            <Icon as={dividerPng}  mt={3} mr={2}
-            />
-            <Icon as={Sliders}  mt={3} mr={2}
-            />
-            */
-          }
         </HStack>
       </Box>
     </Box>
