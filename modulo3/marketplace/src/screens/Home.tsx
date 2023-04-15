@@ -51,21 +51,21 @@ export function Home(){
       <HStack>
         <Center mr={4}>
           <Center>
-            <AdCard productCondition="NOVO" ProductUri={tenisPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images'
+            <AdCard productCondition="NOVO" productUri={tenisPng} 
             alt="teste" description="Tênis vermelho" price="R$ 120,00" />
-            <AdCard productCondition="USADO" ProductUri={armarioPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
+            <AdCard productCondition="USADO" productUri={armarioPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
             alt="teste" description="Armário" price="R$ 200,00" />
-            <AdCard productCondition="NOVO" ProductUri={bicicletaPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
+            <AdCard productCondition="NOVO" productUri={bicicletaPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
             alt="teste" description="Bicicleta" price="R$ 1.500,00" />
           </Center>
         </Center>
         <Center>
           <Center>
-            <AdCard productCondition="NOVO" ProductUri={sofaPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
+            <AdCard productCondition="NOVO" productUri={sofaPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
             alt="teste" description="Sofá" price="R$ 1.200,00" />
-            <AdCard productCondition="USADO" ProductUri={coturnoPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
+            <AdCard productCondition="USADO" productUri={coturnoPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
             alt="teste" description="Coturno Feminino" price="R$ 150,00" />
-            <AdCard productCondition="USADO" ProductUri={camisaPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
+            <AdCard productCondition="USADO" productUri={camisaPng} userPhotoUri='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images' 
             alt="teste" description="Camisa" price="R$ 80,00" />
           </Center>
         </Center>

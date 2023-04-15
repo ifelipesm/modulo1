@@ -6,23 +6,25 @@ type AdCardProps = IImageProps & {
   description: string,
   price: string,
   userPhotoUri?: string;
-  ProductUri: ImageURISource;
+  productUri: ImageURISource;
   productCondition: string;
+  productIsActive?: boolean;
 }
 
-export function AdCard({description,price,userPhotoUri,ProductUri,productCondition}:AdCardProps){
-  
+export function AdCard({description,price,userPhotoUri,productUri,productCondition,productIsActive}:AdCardProps){
   const size = 8;
 
 
   return(
     <Box>
-      <VStack>
+      <VStack >
         <TouchableOpacity>
           <Image
+          background={productIsActive ?  "gray.700" : "gray.100"}
+          opacity={productIsActive ?  "1" : "0.45"}
           w={164}
           h={111}
-          source={ProductUri}
+          source={productUri}
           alt="Produto"
           borderRadius="6"
           rounded="md"
@@ -38,26 +40,44 @@ export function AdCard({description,price,userPhotoUri,ProductUri,productConditi
           </Text>
         </Box>
       </VStack>
-      <Image
-        position="absolute"
-        w={size}
-        h={size}
-        ml={1}
-        mt={1}
-        alt='user image'
-        source={ userPhotoUri ? {uri: userPhotoUri } : defaultPhoto }
-        rounded="full"
-        borderWidth={1}
-        borderColor="gray.700"
-      />
-        <Box position="absolute" w={16} h={6} top={1} right={2} ml={1} mt={1} 
+        { userPhotoUri ?
+          <Image
+            position="absolute"
+            w={size}
+            h={size}
+            ml={1}
+            mt={1}
+            alt='user image'
+            source={ userPhotoUri ? {uri: userPhotoUri } : defaultPhoto }
+            rounded="full"
+            borderWidth={1}
+            borderColor="gray.700"
+          />
+          :
+          <></>
+        }
+        <Box 
+        position="absolute" w={16} h={6} top={1} right={2} ml={1} mt={1} 
         borderRadius="2xl" alignItems="center"
+        background={productIsActive ?  "gray.700" : "gray.100"}
+        opacity={productIsActive ?  "1" : "0.45"}
         bgColor={productCondition === 'NOVO' ? 'blue.500' : 'gray.200'}
         >
           <Text fontSize="sm" color="gray.700" >
             {productCondition === 'NOVO' ? 'NOVO' : 'USADO'}
           </Text>
         </Box>
+        { productIsActive ?
+          <>
+          </>
+          :
+          <Box position="absolute" w='full' h={4} top={20} left={2}  mt={1} 
+          borderRadius="2xl" >
+            <Text fontSize="sm" fontFamily="heading" color="gray.700">
+              ANÚNCIO DESATIVADO
+            </Text>
+          </Box>
+        }
     </Box>
   );
 }
