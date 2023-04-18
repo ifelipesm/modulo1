@@ -1,4 +1,5 @@
-import { Button as ButtonNativeBase, IButtonProps, Text, useTheme } from "native-base"
+import { Button as ButtonNativeBase, HStack, IButtonProps, Icon, Text, useTheme } from "native-base"
+import { Tag,ArrowLeft } from 'phosphor-react-native'
 
 type Props = IButtonProps & {
   title: string;
@@ -36,12 +37,15 @@ export function Button({title,type="blue",sizeX, ...rest}:Props){
       }}
     {...rest}
     >
-      <Text 
-      color={type === "blue" || type === "black" ? "gray.700" : "gray.200" }
-      fontFamily="heading" 
-      fontSize="sm">
-        {title}
-      </Text>
+      <HStack>
+        <Tag color={bgColor[type].default} />
+        <Text 
+        color={type === "blue" || type === "black" ? "gray.700" : "gray.200" }
+        fontFamily="heading" 
+        fontSize="sm">
+          {title}
+        </Text>
+      </HStack>
     </ButtonNativeBase>
   );
 }
