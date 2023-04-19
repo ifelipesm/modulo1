@@ -1,4 +1,4 @@
-import { HeaderAdCreate } from "@components/HeaderAdCreate";
+import { HeaderAd } from "@components/HeaderAd";
 import { DefaultImageCard } from "@components/DefaultImageCard";
 import { Box, Center, HStack, ScrollView, Switch, Text, VStack } from "native-base";
 import tenisPng from '@assets/productImages/tenis.png';
@@ -25,7 +25,7 @@ export function AdCreate(){
     <>
       <VStack bgColor="gray.600" px={7} flex={1}> 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <HeaderAdCreate />
+          <HeaderAd text="Criar Anúncio" />
           <Box mt={8}>
             <Text fontSize="md" color="gray.100" fontFamily="heading">
               Imagens

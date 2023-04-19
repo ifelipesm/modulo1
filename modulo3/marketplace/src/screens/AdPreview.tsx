@@ -2,6 +2,8 @@ import { AdCarousel } from "@components/AdCarousel";
 import { ButtonPreview } from "@components/ButtonPreview";
 import { UserCard } from "@components/UserCard";
 import { useAuth } from "@hooks/useAuth";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { Box, Center, HStack, ScrollView, Text, VStack } from "native-base";
 import { Bank, Barcode, QrCode } from 'phosphor-react-native'
 
@@ -10,9 +12,20 @@ export function AdPreview(){
   const productIsActive = true;
   const productCondition = 'NOVO';
   const { user } = useAuth();
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+
+  function handlePublishAd(){
+    navigation.navigate("addetails");
+  }
+
+  function handleGoEdit(){
+    navigation.navigate("adedit");
+  }
+
   return(
     <>
-    
+
     <ScrollView>
       <VStack bgColor="blue.700" px={8} h={120} >
         <Box mt={12}>
@@ -77,8 +90,8 @@ export function AdPreview(){
     </ScrollView>
     <Box h={16} mt={5} >
       <HStack alignItems="center" justifyContent="center" >
-        <ButtonPreview mr={4} title="Voltar e Editar" type="gray" sizeX="33" />
-        <ButtonPreview title="Publicar" type="blue" sizeX="33" />
+        <ButtonPreview onPress={handleGoEdit} mr={4} title="Voltar e Editar" type="gray" sizeX="33" />
+        <ButtonPreview onPress={handlePublishAd} title="Publicar" type="blue" sizeX="33" />
       </HStack>
     </Box>
     </>

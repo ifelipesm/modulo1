@@ -312,7 +312,7 @@ export function SignUp(){
 
             </Center>
             <Center mt={6} mb={12} >
-              <Button sizeX="32" isLoading={isLoading} onPress={handleSubmit(handleSignUp)} title="Criar" type="black" />
+              <Button isLoading={isLoading} onPress={handleSubmit(handleSignUp)} title="Criar" type="black" />
             </Center>
             <Box>
               <AuthFooter action={handleSignIn} label="Já tem uma conta?" title="Ir para o login" />

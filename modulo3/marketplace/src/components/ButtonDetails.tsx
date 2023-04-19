@@ -1,20 +1,20 @@
-import { Button as ButtonNativeBase, HStack, IButtonProps, Icon, Text, useTheme } from "native-base"
-import { Tag,ArrowLeft } from 'phosphor-react-native'
+import { Button as ButtonNativeBase, HStack, IButtonProps, Text, useTheme } from "native-base"
+import { Power, Trash } from "phosphor-react-native";
 
 type Props = IButtonProps & {
   title: string;
-  type?: "blue" | "gray" | "black";
+  type?: string;
   sizeX?: string;
 }
 
-export function Button({title,type="blue",sizeX, ...rest}:Props){
+export function ButtonDetails({title,type="blue",sizeX, ...rest}:Props){
   
   const theme = useTheme();
 
     const bgColor = {
         blue: {
-            default: theme.colors.blue['500'],
-            pressed: theme.colors.blue['700'],
+            default: theme.colors.blue['700'],
+            pressed: theme.colors.blue['500'],
         },
         black: {
             default: theme.colors.gray['100'],
@@ -37,12 +37,22 @@ export function Button({title,type="blue",sizeX, ...rest}:Props){
       }}
     {...rest}
     >
-        <Text 
-        color={type === "blue" || type === "black" ? "gray.700" : "gray.200" }
+      <HStack alignItems="center" justifyContent="center">
+        {
+          type === 'black' || type==='blue' ?
+          <Power color={theme.colors.gray[700]} />
+          :
+          <Trash color={theme.colors.gray[200]} />
+        }
+        
+        <Text
+        ml={2} 
+        color={type === 'black' || type==='blue' ? "gray.700" : "gray.200"}
         fontFamily="heading" 
         fontSize="sm">
           {title}
         </Text>
+      </HStack>
     </ButtonNativeBase>
   );
 }
