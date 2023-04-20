@@ -16,7 +16,7 @@ export function AdCarousel({status}:Props){
         <Box w="full" h={MAX_H} bgColor="gray.300" >
           <Image
           background="gray.100"
-          opacity="0.6"
+          opacity="0.4"
           w="full"
           h={MAX_H}
           alt="alt"

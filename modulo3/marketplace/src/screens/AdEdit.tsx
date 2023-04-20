@@ -25,7 +25,7 @@ export function AdEdit(){
       <VStack bgColor="gray.600" px={7} flex={1}> 
         <ScrollView showsVerticalScrollIndicator={false}>
           <HeaderAd text="Editar Anúncio" />
-          <Box mt={8}>
+          <Box mt={8} >
             <Text fontSize="md" color="gray.100" fontFamily="heading">
               Imagens
             </Text>
