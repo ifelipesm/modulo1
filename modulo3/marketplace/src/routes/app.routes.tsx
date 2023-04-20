@@ -81,22 +81,30 @@ export function AppRoutes(){
       <Screen
         name="adcreate"
         component={AdCreate}
-        options={{tabBarButton: () => null}}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null}}
       />
       <Screen
         name="adedit"
         component={AdEdit}
-        options={{tabBarButton: () => null}}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null}}
       />
       <Screen
         name="adpreview"
         component={AdPreview}
-        options={{tabBarButton: () => null}}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null}}
       />
       <Screen
         name="addetails"
         component={AdDetails}
-        options={{tabBarButton: () => null}}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null}}
       />
     </Navigator>
   )

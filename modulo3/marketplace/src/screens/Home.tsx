@@ -38,6 +38,10 @@ export function Home(){
     isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
   }
 
+  function handleMyAds(){
+    navigation.navigate("myads");
+  }
+
   return(
     <>
       <VStack bgColor="gray.600"  flex={1} px={6}>
@@ -51,7 +55,7 @@ export function Home(){
           <CreateAdButton onRedirect={handleCreateAd}  />
         </HStack>
         <Box mt={8} >
-        <MyAdsCard/>
+        <MyAdsCard onRedirect={handleMyAds}  />
         </Box>
         <Box mt={8} mb={6}>
           <SearchBar onFilterPress={handleOpenFilter} />

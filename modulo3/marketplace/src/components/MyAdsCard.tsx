@@ -2,7 +2,11 @@ import { Text,Box, Center, HStack, VStack, useTheme } from "native-base";
 import { Tag,ArrowRight } from 'phosphor-react-native'
 import { TouchableOpacity } from "react-native";
 
-export function MyAdsCard(){
+type Props = {
+  onRedirect: () => void;
+}
+
+export function MyAdsCard({onRedirect}:Props){
 
   const { colors } = useTheme();
 
@@ -11,7 +15,7 @@ export function MyAdsCard(){
       <Text mb={3} color="gray.300" fontFamily="body" fontSize="md" >
         Seus produtos anunciados para venda
       </Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onRedirect} >
         <HStack bgColor="blue.900" borderRadius={8} mt={3} px={4} py={3}>
             <HStack alignItems="center" >
                 <Tag size={22} color={colors.blue[500]} />
