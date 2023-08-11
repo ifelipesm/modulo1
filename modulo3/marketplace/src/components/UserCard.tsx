@@ -13,7 +13,8 @@ type Props = IImageProps & {
 
 export function UserCard({size,user,type,...rest}:Props){
 
-  // const avatar_uri =  `${api.defaults.baseURL}/users/${user.id}?avatar=${user.avatar}`
+  
+   const avatar_uri =  `${api.defaults.baseURL}/images/${user.avatar}`
   
   // ternário do source
   // user.avatar ? { uri: avatar_uri } : 
@@ -23,7 +24,7 @@ export function UserCard({size,user,type,...rest}:Props){
       <Image
         w={size}
         h={size}
-        source={{uri: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.reallusion.com%2Fcharacter-creator%2Fincludes%2Fimages%2Fdefault%2Fshowcase_yumi.jpg&f=1&nofb=1&ipt=84e618751c3246127c0831fe5975f6f35d6b2ad83302665ee40a369426b59747&ipo=images`} }
+        source={user.avatar ? { uri: avatar_uri } : defaultAvatar }
         rounded="full"
         borderWidth={2}
         borderColor="blue.500"

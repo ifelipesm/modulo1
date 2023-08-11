@@ -1,30 +1,31 @@
 import {Box, IImageProps, Image, Text, VStack} from 'native-base'
-import { ImageURISource, TouchableOpacity } from 'react-native'
+import { ImageSourcePropType, ImageURISource, TouchableOpacity } from 'react-native'
 import defaultPhoto from '@assets/defaultUserPhoto.png'
+import { api } from '@services/api';
 
 type AdCardProps = IImageProps & {
-  description: string,
-  price: string,
-  userPhotoUri?: string;
-  productUri: ImageURISource;
-  productCondition: string;
+  name: string,
+  price: number,
+  userPhotoUri: string;
+  productUri: string;
+  productCondition: boolean;
   productIsActive?: boolean;
 }
 
-export function AdCard({description,price,userPhotoUri,productUri,productCondition,productIsActive}:AdCardProps){
+export function AdCard({name,price,userPhotoUri,productUri,productCondition,productIsActive}:AdCardProps){
   const size = 8;
-
+  const productSource = `${api.defaults.baseURL}/images/${productUri}`
+  const userAvatarSource = `${api.defaults.baseURL}/images/${userPhotoUri}`
 
   return(
-    <Box>
+    <Box w='48%' mr={4} >
       <VStack >
         <TouchableOpacity>
           <Image
           background={productIsActive ?  "gray.700" : "gray.100"}
           opacity={productIsActive ?  "1" : "0.45"}
-          w={164}
           h={111}
-          source={productUri}
+          source={{uri: productSource}}
           alt="Produto"
           borderRadius="6"
           rounded="md"
@@ -33,10 +34,10 @@ export function AdCard({description,price,userPhotoUri,productUri,productConditi
         </TouchableOpacity>
         <Box mt={2} mb={6}>
           <Text fontSize="md" color="gray.200" fontFamily="body" >
-            {description}
+            {name}
           </Text>
           <Text fontSize="md" fontFamily="body" color="gray.100" fontWeight="bold" >
-            {price}
+            R$ {price}
           </Text>
         </Box>
       </VStack>
@@ -48,7 +49,7 @@ export function AdCard({description,price,userPhotoUri,productUri,productConditi
             ml={1}
             mt={1}
             alt='user image'
-            source={ userPhotoUri ? {uri: userPhotoUri } : defaultPhoto }
+            source={ (userPhotoUri !== undefined || userPhotoUri !== '') ? {uri: userAvatarSource } : defaultPhoto }
             rounded="full"
             borderWidth={1}
             borderColor="gray.700"
@@ -61,10 +62,10 @@ export function AdCard({description,price,userPhotoUri,productUri,productConditi
         borderRadius="2xl" alignItems="center"
         background={productIsActive ?  "gray.700" : "gray.100"}
         opacity={productIsActive ?  "1" : "0.45"}
-        bgColor={productCondition === 'NOVO' ? 'blue.500' : 'gray.200'}
+        bgColor={productCondition === true ? 'blue.500' : 'gray.200'}
         >
           <Text fontSize="sm" color="gray.700" >
-            {productCondition === 'NOVO' ? 'NOVO' : 'USADO'}
+            {productCondition === true ? 'NOVO' : 'USADO'}
           </Text>
         </Box>
         { productIsActive ?
