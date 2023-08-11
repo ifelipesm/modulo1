@@ -29,8 +29,7 @@ export function AuthContextProvider({  children  }:  AuthContextProviderProps){
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
 
     setUser(userData);
-    
-
+    console.log(user);
   }
 
   async function storageUserAndTokenSave(userData: UserDTO, token: string, refresh_token: string){

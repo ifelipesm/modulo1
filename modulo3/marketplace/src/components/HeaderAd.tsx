@@ -10,17 +10,19 @@ type Props = {
  onNewAd?: () => void;
 }
 
-export function HeaderAd({text,type,onBack,onEdit,onNewAd,...rest}:Props){
+export function HeaderAd({text,type,onBack,onEdit,onNewAd}:Props){
   
   const { colors } = useTheme();
 
   return(
-    <HStack mt={16} alignItems="center" justifyContent="center" >
+    <HStack mt={12} alignItems="center" justifyContent="center" >
       {
         type === 'edit' ?
         <>
           <TouchableOpacity onPress={onBack}>
-            <ArrowLeft color={colors.gray[100]} size={24} />
+            <Box w={12} h={12}>
+              <ArrowLeft color={colors.gray[100]} size={24} />
+            </Box>
           </TouchableOpacity>
           <TouchableOpacity onPress={onEdit}>
             <Box ml={290}>
